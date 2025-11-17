@@ -255,241 +255,246 @@
 
   <!-- Leaflet: kun Norge, uten ramme eller bakgrunn -->
   <script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    // 1) Leser data fra tabellen -> Map(navn -> verdi)
-    const table = document.querySelector('#county-table');
-    if (!table) return;
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1) Leser data fra tabellen -> Map(navn -> verdi)
+  const table = document.querySelector('#county-table');
+  if (!table) return;
 
-    const norm = s =>
-      (s || '')
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, ' ')
-        .replace(/\./g, '');
+  const norm = s =>
+    (s || '')
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/\./g, '');
 
-    const alias = new Map([
-      ['vestlandet', 'vestland'] // navne-fix
-    ]);
+  const alias = new Map([
+    ['vestlandet', 'vestland'] // navne-fix
+  ]);
 
-    const dataMap = new Map();
-    table.querySelectorAll('tbody tr').forEach(tr => {
-      const [nTd, vTd] = tr.querySelectorAll('td');
-      if (!nTd || !vTd) return;
+  // navn (fra tabell/geo) -> nøkkel brukt i dataMap/nameByKey
+  const toKey = (name) => {
+    const base = (name || '').split(' - ')[0];   // "Nordland - Nordlándda" -> "Nordland"
+    let key = norm(base);
+    if (alias.has(key)) key = alias.get(key);    // f.eks. vestlandet -> vestland
+    return key;
+  };
 
-      let key = norm(nTd.textContent);
-      if (alias.has(key)) key = alias.get(key);
+  const dataMap = new Map();
+  table.querySelectorAll('tbody tr').forEach(tr => {
+    const [nTd, vTd] = tr.querySelectorAll('td');
+    if (!nTd || !vTd) return;
 
-      const val =
-        Number(
-          String(vTd.textContent)
-            .replace(/\s/g, '')
-            .replace(',', '.')
-            .replace(/[^\d.]/g, '')
-        ) || 0;
+    let key = toKey(nTd.textContent);           // bruker samme nøkkel-logikk som GeoJSON
 
-      dataMap.set(key, val);
-    });
+    const val =
+      Number(
+        String(vTd.textContent)
+          .replace(/\s/g, '')
+          .replace(',', '.')
+          .replace(/[^\d.]/g, '')
+      ) || 0;
 
-    // 2) Top 4 fylker (høyeste verdier)
-    const top4 = [...dataMap.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 4)
-      .map(([k]) => k);
+    dataMap.set(key, val);
+  });
 
-    const isTop4 = new Set(top4);
+  // 2) Top 4 fylker (høyeste verdier)
+  const top4 = [...dataMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([k]) => k);
 
-    // 3) Leser GeoJSON
-    const res = await fetch('assets/geo/fylker_2024.geojson', { cache: 'no-store' });
-    if (!res.ok) {
-      console.error('Kunne ikke laste GeoJSON', res.status);
-      return;
+  const isTop4 = new Set(top4);
+
+  // 3) Leser GeoJSON
+  const res = await fetch('assets/geo/fylker_2024.geojson', { cache: 'no-store' });
+  if (!res.ok) {
+    console.error('Kunne ikke laste GeoJSON', res.status);
+    return;
+  }
+  const geo = await res.json();
+
+  // mapping: nøkkel -> kort visningsnavn
+  const nameByKey = {};
+  geo.features.forEach(f => {
+    const rawName = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
+    const key = toKey(rawName);
+    if (!nameByKey[key]) {
+      nameByKey[key] = rawName.split(' - ')[0]; // kort navn til legenda
     }
-    const geo = await res.json();
+  });
 
-    // Lager mapping: normalisert nøkkel -> kort navn (første del før " - ")
-    const nameByKey = {};
-    geo.features.forEach(f => {
-      const rawName = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
-      const key = norm(rawName);
-      if (!nameByKey[key]) {
-        nameByKey[key] = rawName.split(' - ')[0];
+  // 4) Rød gradient for fylker som ikke er i topp 4
+  const values = [...dataMap.values()];
+  const vmin = Math.min(...values);
+  const vmax = Math.max(...values, 1);
+
+  const color = x => {
+    const t = Math.max(0, Math.min(1, (x - vmin) / (vmax - vmin || 1)));
+    const r = Math.round(255 - 100 * t);  // 255 → 155
+    const g = Math.round(240 - 140 * t);  // 240 → 100
+    const b = Math.round(240 - 140 * t);  // 240 → 100
+    return `rgb(${r},${g},${b})`;
+  };
+
+  // 5) Oppretter kart – låst (ingen drag/zoom), kun klikk
+  const map = L.map('leaflet-map', {
+    zoomControl: false,
+    attributionControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    touchZoom: false
+  });
+
+  map.getContainer().style.background = 'transparent';
+
+  // 6) Norge-lag – topp 4 i sterk rødt, andre med gradient, ingen data i hvitt
+  let hovered;
+  let resetTimeout;
+
+  const layer = L.geoJSON(geo, {
+    style: f => {
+      const n = toKey(f.properties.navn || f.properties.fylkesnavn || '');
+      const hasVal = dataMap.has(n);
+      const v = hasVal ? (dataMap.get(n) ?? 0) : null;
+
+      let fillColor;
+      let fillOpacity = 1;
+
+      if (!hasVal || v === null) {
+        fillColor = '#ffffff';          // ingen data
+        fillOpacity = 0.9;
+      } else if (isTop4.has(n)) {
+        fillColor = '#dc2626';          // topp 4
+      } else {
+        fillColor = color(v);           // øvrige
       }
-    });
 
-    // 4) Rød gradient for fylker som ikke er i topp 4
-    const values = [...dataMap.values()];
-    const vmin = Math.min(...values);
-    const vmax = Math.max(...values, 1);
+      return {
+        color: 'transparent',
+        weight: 0,
+        fillColor,
+        fillOpacity
+      };
+    },
+    onEachFeature: (f, lyr) => {
+      const name = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
+      const key = toKey(name);
+      const hasVal = dataMap.has(key);
+      const v = hasVal ? (dataMap.get(key) ?? 0) : null;
 
-    // Hvit -> lys rosa -> middels rød (for øvrige fylker med data)
-    const color = x => {
-      const t = Math.max(0, Math.min(1, (x - vmin) / (vmax - vmin || 1)));
-      const r = Math.round(255 - 100 * t);  // 255 → 155
-      const g = Math.round(240 - 140 * t);  // 240 → 100
-      const b = Math.round(240 - 140 * t);  // 240 → 100
-      return `rgb(${r},${g},${b})`;
-    };
+      const tooltipLabel = hasVal
+        ? `${name}: ${v.toLocaleString('nb-NO')} %`
+        : `${name}: ingen data`;
 
-    // 5) Oppretter kart – låst (ingen drag/zoom), kun klikk
-    const map = L.map('leaflet-map', {
-      zoomControl: false,
-      attributionControl: false,
-      dragging: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      boxZoom: false,
-      keyboard: false,
-      touchZoom: false
-    });
+      // Tooltip
+      lyr.bindTooltip(tooltipLabel, { sticky: true });
 
-    map.getContainer().style.background = 'transparent';
+      // Hover-effekt
+      lyr.on('mouseover', () => {
+        hovered = lyr;
+        lyr.setStyle({ color: '#1e3a8a', weight: 1.5, fillOpacity: 1 });
+        lyr.bringToFront();
+      });
 
-    // 6) Norge-lag – topp 4 i sterk rødt, andre med gradient, ingen data i hvitt
-    let hovered;
-    let resetTimeout;
+      lyr.on('mouseout', () => {
+        if (hovered === lyr) hovered = null;
 
-    const layer = L.geoJSON(geo, {
-      style: f => {
-        const n = norm(f.properties.navn || f.properties.fylkesnavn || '');
-        const hasVal = dataMap.has(n);
-        const v = hasVal ? (dataMap.get(n) ?? 0) : null;
+        const n = toKey(f.properties.navn || f.properties.fylkesnavn || '');
+        const hasVal2 = dataMap.has(n);
+        const v2 = hasVal2 ? (dataMap.get(n) ?? 0) : null;
 
         let fillColor;
         let fillOpacity = 1;
 
-        if (!hasVal || v === null) {
-          fillColor = '#ffffff';          // ingen data
+        if (!hasVal2 || v2 === null) {
+          fillColor = '#ffffff';
           fillOpacity = 0.9;
         } else if (isTop4.has(n)) {
-          fillColor = '#dc2626';          // topp 4
+          fillColor = '#dc2626';
         } else {
-          fillColor = color(v);           // øvrige
+          fillColor = color(v2);
         }
 
-        return {
+        lyr.setStyle({
           color: 'transparent',
           weight: 0,
           fillColor,
           fillOpacity
-        };
-      },
-      onEachFeature: (f, lyr) => {
-        const name = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
-        const key = norm(name);
-        const hasVal = dataMap.has(key);
-        const v = hasVal ? (dataMap.get(key) ?? 0) : null;
-
-        const tooltipLabel = hasVal
-          ? `${name}: ${v.toLocaleString('nb-NO')} %`
-          : `${name}: ingen data`;
-
-        // Tooltip
-        lyr.bindTooltip(tooltipLabel, { sticky: true });
-
-        // Hover-effekt
-        lyr.on('mouseover', () => {
-          hovered = lyr;
-          lyr.setStyle({ color: '#1e3a8a', weight: 1.5, fillOpacity: 1 });
-          lyr.bringToFront();
         });
-
-        lyr.on('mouseout', () => {
-          if (hovered === lyr) hovered = null;
-
-          const n = norm(f.properties.navn || f.properties.fylkesnavn || '');
-          const hasVal2 = dataMap.has(n);
-          const v2 = hasVal2 ? (dataMap.get(n) ?? 0) : null;
-
-          let fillColor;
-          let fillOpacity = 1;
-
-          if (!hasVal2 || v2 === null) {
-            fillColor = '#ffffff';
-            fillOpacity = 0.9;
-          } else if (isTop4.has(n)) {
-            fillColor = '#dc2626';
-          } else {
-            fillColor = color(v2);
-          }
-
-          lyr.setStyle({
-            color: 'transparent',
-            weight: 0,
-            fillColor,
-            fillOpacity
-          });
-        });
-
-        // Klikk: zoom inn på fylket i 3 sekunder, deretter tilbake til Norge
-        lyr.on('click', () => {
-          if (resetTimeout) {
-            clearTimeout(resetTimeout);
-          }
-
-          map.fitBounds(lyr.getBounds(), { padding: [20, 20] });
-
-          resetTimeout = setTimeout(() => {
-            fit(); // tilbake til hele Norge
-          }, 3000);
-        });
-      }
-    }).addTo(map);
-
-    // 7) Tilpass utsnitt til Norge + håndter endring av vindusstørrelse
-    const bounds = layer.getBounds();
-
-    function fit() {
-      map.invalidateSize();
-      map.fitBounds(bounds, { padding: [0, 0] });
-    }
-
-    map.setView([64.5, 16], 4);
-    requestAnimationFrame(fit);
-    setTimeout(fit, 120);
-    window.addEventListener('resize', fit);
-
-    map.setMaxBounds(bounds.pad(0.25));
-    map.setMinZoom(map.getBoundsZoom(bounds));
-
-    // 8) Legende: kun fylker som har data, format "Navn: prosent %"
-    const legend = L.control({ position: 'bottomright' });
-
-    legend.onAdd = () => {
-      const div = L.DomUtil.create('div');
-      div.style.cssText =
-        'background:#000c;color:#fff;padding:.7rem 1rem;border-radius:16px;font:14px system-ui;line-height:1.4;max-height:60vh;overflow:auto;';
-
-      let html = '<div style="font-weight:700;margin-bottom:.4rem">Fylker</div>';
-
-      // Lager liste fra dataMap (kun fylker med verdi)
-      const items = [...dataMap.entries()].map(([key, value]) => {
-        const name = nameByKey[key] || key; // kort visningsnavn
-        const fillColor = isTop4.has(key) ? '#dc2626' : color(value);
-        return { key, name, value, fillColor };
       });
 
-      // Sorter etter verdi, synkende
-      items.sort((a, b) => b.value - a.value);
+      // Klikk: zoom inn på fylket i 3 sekunder, deretter tilbake til Norge
+      lyr.on('click', () => {
+        if (resetTimeout) {
+          clearTimeout(resetTimeout);
+        }
 
-      // Render rader: "Navn: 14,1 %"
-      for (const item of items) {
-        const valueText = `${item.value.toLocaleString('nb-NO')} %`;
-        html += `
-          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
-            <span style="display:inline-block;width:20px;height:14px;background:${item.fillColor};border:1px solid rgba(255,255,255,.2);"></span>
-            <span>${item.name}: ${valueText}</span>
-          </div>
-        `;
-      }
+        map.fitBounds(lyr.getBounds(), { padding: [20, 20] });
 
-      div.innerHTML = html;
-      return div;
-    };
+        resetTimeout = setTimeout(() => {
+          fit(); // tilbake til hele Norge
+        }, 3000);
+      });
+    }
+  }).addTo(map);
 
-    legend.addTo(map);
-  });
-  </script>
+  // 7) Tilpass utsnitt til Norge + håndter endring av vindusstørrelse
+  const bounds = layer.getBounds();
 
+  function fit() {
+    map.invalidateSize();
+    map.fitBounds(bounds, { padding: [0, 0] });
+  }
+
+  map.setView([64.5, 16], 4);
+  requestAnimationFrame(fit);
+  setTimeout(fit, 120);
+  window.addEventListener('resize', fit);
+
+  map.setMaxBounds(bounds.pad(0.25));
+  map.setMinZoom(map.getBoundsZoom(bounds));
+
+  // 8) Legende: kun fylker som har data, format "Navn: prosent %"
+  const legend = L.control({ position: 'bottomright' });
+
+  legend.onAdd = () => {
+    const div = L.DomUtil.create('div');
+    div.style.cssText =
+      'background:#000c;color:#fff;padding:.7rem 1rem;border-radius:16px;font:14px system-ui;line-height:1.4;max-height:60vh;overflow:auto;';
+
+    let html = '<div style="font-weight:700;margin-bottom:.4rem">Fylker</div>';
+
+    // Lager liste fra dataMap (kun fylker med verdi)
+    const items = [...dataMap.entries()].map(([key, value]) => {
+      const name = nameByKey[key] || key; // kort visningsnavn
+      const fillColor = isTop4.has(key) ? '#dc2626' : color(value);
+      return { key, name, value, fillColor };
+    });
+
+    // Sorter etter verdi, synkende
+    items.sort((a, b) => b.value - a.value);
+
+    // Render rader: "Navn: 14,1 %"
+    for (const item of items) {
+      const valueText = `${item.value.toLocaleString('nb-NO')} %`;
+      html += `
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
+          <span style="display:inline-block;width:20px;height:14px;background:${item.fillColor};border:1px solid rgba(255,255,255,.2);"></span>
+          <span>${item.name}: ${valueText}</span>
+        </div>
+      `;
+    }
+
+    div.innerHTML = html;
+    return div;
+  };
+
+  legend.addTo(map);
+});
+</script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector('.simg-wrap');

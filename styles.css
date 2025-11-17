@@ -736,14 +736,24 @@ body.story footer { max-width: none !important; width: 100% !important; margin: 
 body.story section { background: transparent !important; border: 0 !important; box-shadow: none !important;
   border-radius: 0 !important; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
 body.story figure img { border: 0 !important; background: transparent !important; border-radius: 0 !important;
-  width: 100%; height: auto; }
+  width: 100%; height: auto;
+}
 
 body.story #photo { position: relative; margin: 0; padding: 0; }
 body.story #photo .hero-sticky {
-  position: sticky; top: 0; height: 100vh; width: 100%;
-  overflow: hidden; z-index: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 0;
 }
-body.story #photo .hero-sticky img { width: 100%; height: 100%; object-fit: cover; display: block; }
+body.story #photo .hero-sticky img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 body.story #photo .scrolly-steps { position: relative; z-index: 2; }
 body.story #photo .step {
@@ -1148,6 +1158,7 @@ body.story header h1{
 body.story header{
   padding-left: min(6vw, 40px);
   padding-right: min(6vw, 40px);
+  
 }
 
 /* ========== NAV-SIDEOVERRIDER (avgrenset) ========== */
@@ -1939,6 +1950,7 @@ body.page-topic-e main {
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
+  color:#0f1826;
 }
 
 /* spesifikk størrelse på elbil-kart i denne seksjonen */
@@ -1946,6 +1958,7 @@ body.page-topic-e main {
   width: 520px;
   height: 700px;
   border-radius: 10px;
+  
 }
 
 /* fjern sentrering på side E (bruk arvet) */
@@ -2050,12 +2063,12 @@ figure,
 #elbil-map,
 #finnmark-map,
 .leaflet-container {
-  background: #6f1010 !important;
+  background: #000 !important;
   border: none !important;
   box-shadow: none !important;
 }
 .leaflet-control {
-  background: #7a1818 !important; /* Use your page's background color */
+  background: #872626 !important; /* match full-black layout */
   color: #fff !important;
   border-radius: 16px;
   font: 14px / 1.4 system-ui;
