@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="no" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Video games - Storytelling</title>
+
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <meta name="format-detection" content="telephone=no">
+</head>
+
+<link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet"/>
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<body class="story">
+  <header>
+    <h1>Fra netthets til vennskap - to sider av gamingmiljøet</h1>
+  </header>
+
+
+
+
+
+
+
+  
+
+  <main>
+
+    <!-- ===== الهيرو: صورة ثابتة + نص يمشي فوقها ===== -->
+    <section id="photo" aria-label="Åpningsbilde med fortelling">
+      <div class="hero-sticky" aria-hidden="true">
+        <img src="assets/images/DSC02604.JPG" alt="Deltaker på LANMine" />
+      </div>
+
+      <div class="scrolly-steps">
+        <div class="step">
+          <div class="text">
+            «Jeg har fått beskjed om at jeg burde drepe meg selv, bare fordi jeg snakket i et spill», sier en av deltakerne på LANMine.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="text">Kjæresten stryker henne rolig på låret og ser ned mot gulvet.</div>
+        </div>
+
+        <div class="step">
+          <div class="text">
+            Fire ganger i året samles rundt hundre gamere i Hvalerhallen. LANMine er en gamingfestival med konkurranser, sceneshow og fellesskap på tvers av alle aldre. Mange ser på gaming som usosialt. Men for deltakerne her er LANMine årets høydepunkt.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="text">
+          
+              <P>Flere ungdommer sier de heller vil hit enn på sydentur med familien.</P>
+             
+            
+    
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===== نهاية الهيرو ===== -->
+
+    <!-- ===== Crossfade لثلاث صور ===== -->
+    <section id="crossfade" aria-label="Rolig kryssfade mellom tre bilder">
+      <div class="xf-viewport">
+        <img class="xf-img" src="assets/images/persons_1.jpg" alt="Deltakere på LANMine 1">
+        <img class="xf-img" src="assets/images/persons_2.jpg" alt="Deltakere på LANMine 2">
+        <img class="xf-img" src="assets/images/persons_3.jpg" alt="Deltakere på LANMine 3">
+      </div>
+      <!-- نص ثابت فوق crossfade -->
+<div class="xf-text-fixed" aria-hidden="true"> <P>Ifølge Statistisk sentralbyrå (2024) gamer to av tre barn og unge daglig.</P></div>
+<section id="psyche-fade" class="nav-xf" data-xf="true">…</section> 
+    </section>
+    <!-- ===== نهاية الكروسفيد ===== -->
+
+    <!-- باقي المحتوى -->
+  <section id="base" class="scrolly-pairs" aria-labelledby="base-title">
+  <!-- عارض صور ثابت (يتبدل حسب الفقرة النشطة) -->
+  <div class="sp-viewport" aria-hidden="true">
+    <img class="sp-img" src="assets/images/DSC02582.JPG" alt="">
+    <img class="sp-img" src="assets/images/DSC02577.JPG" alt="">
+    <img class="sp-img" src="assets/images/DSC02624.JPG" alt="">
+    <img class="sp-img" src="assets/images/DSC02606.JPG" alt="">
+
+  </div>
+
+  <!-- خطوات النصوص المتحركة -->
+  <div class="sp-steps">
+    <div class="sp-step" data-i="0">
+      <div class="sp-text">
+        <p>Hva er egentlig fordelene og ulempene?</p>
+        <p>Vi tok turen til Hvalerhallen for å finne ut av det.</p>
+      </div>
+    </div>
+
+    <div class="sp-step" data-i="1">
+      <div class="sp-text">
+        <p>Folk rigger opp pc-utstyr, og potetgullposen stikker ut av sekken.</p>
+      </div>
+    </div>
+
+    <div class="sp-step" data-i="2">
+      <div class="sp-text">
+        <p>Energidrikkene popper, tastaturene trykkes ned. Noen jubler, mens andre slår neven i bordet. Her sitter gamerne og spiller på LANMine arrangementet.</p>
+       
+      </div>
+    </div>
+
+    
+
+   
+</div>
+</section>
+      
+
+
+<section id="closing" class="closing" aria-label="Avslutning">
+  <!-- الصورة تبقى ثابتة أثناء التمرير -->
+  <div class="closing-viewport" aria-hidden="true">
+    <img src="assets/images/DSC02606.JPG" alt="Siste bilde fra LANMine">
+  </div>
+
+  <div class="closing-steps">
+    <div class="cstep">
+      <div class="bubble">
+        <p>Vi får øye på to gamere som er kledd i matchende rosa gamingantrekk.
+ - Hei! Så kule dere var!</p>
+      </div>
+    </div>
+
+
+  <!-- فقرات النص المتتالية فوق الصورة -->
+  <div class="closing-steps">
+    <div class="cstep">
+      <div class="bubble">
+        <p>Sander (27) og Marie (22) smilte stort, og viste stort engasjement til å bli kjent med oss.</p>
+      </div>
+    </div>
+
+    <div class="cstep">
+      <div class="bubble">
+        <p><p><strong>Hva gleder dere dere mest til på LANMine? spør vi.</strong></p>
+    <p>Jeg gleder meg mest til å se sceneshowet og hilse på alle vennene mine som jeg ikke har sett på flere år, forteller Sander. Marie smiler og nikker anerkjennende.</p></p>
+      </div>
+    </div>
+
+    <div class="cstep">
+      <div class="bubble">
+        <p><strong>Når vi spør hvordan spillmiljøet oppleves, blir tonen mer alvorlig.</strong></p>
+    <p>Spillmiljøet er generelt veldig bra, det er bare ett problem … og det er at jeg er jente, sier Marie, og blir tydelig ukomfortabel. Jeg har fått beskjed om at jeg burde drepe meg selv, bare fordi jeg snakket i et spill. Jeg har til og med fått meldinger om at noen vil finne meg og voldta meg. Man blir nesten litt vant til det. Noen ganger legger jeg ikke merke til det engang, sier hun stille.</p>
+    <p>Stemningen i rommet endrer seg.</p>
+      </div>
+    </div>
+
+    <div class="cstep">
+      <div class="bubble">
+        <p>Likevel beskriver de LANMine som et trygt fristed med fellesskap og nye vennskap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+   <section id="closing" class="closing" aria-label="Avslutning">
+  <!-- الصورة تبقى ثابتة أثناء التمرير -->
+  <div class="closing-viewport" aria-hidden="true">
+    <img src="assets/images/DSC02607.JPG" alt="Siste bilde fra LANMine">
+  </div>
+
+
+  
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>Selv om det er mye bra med gaming, er det fortsatt en vei å gå når det kommer til manerer over skjerm.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>Det er som regel verst når kvelden bikker midnatt, for da har foreldrene lagt seg, forteller Sander.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>Men her på LANMine er det annerledes. Her kan man komme som man er. Det er en sosial arena med både gamle og nye vennskap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+ <section id="closing" class="closing" aria-label="Avslutning">
+  <!-- الصورة تبقى ثابتة أثناء التمرير -->
+  <div class="closing-viewport" aria-hidden="true">
+    <img src="assets/images/DSC02612.JPG" alt="Siste bilde fra LANMine">
+  </div>
+  
+  <div class="cstep">
+      <div class="bubble">
+        <p>Deltakeren Stig Rune (19) har også fått mye ut av spillingen.
+ - Engelskkunnskapene mine har vokst, og gaming har vært med på å redde livet mitt, sier han.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<section id="closing" class="closing" aria-label="Avslutning">
+  <!-- الصورة تبقى ثابتة أثناء التمرير -->
+  <div class="closing-viewport" aria-hidden="true">
+    <img src="assets/images/DSC02629.JPG" alt="Siste bilde fra LANMine">
+  </div>
+  
+  <div class="cstep">
+      <div class="bubble">
+        <p>I 2020 og 2021 oppga henholdsvis 85 og 84 prosent av 9–15-åringene at de spilte digitale spill daglig. Deretter kom det en klar nedgang til 71 prosent i 2022 (SSB, 2024). Dette er noe arrangøren Kolbjør (34) også har lagt merke til på LANMine.</p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>- Før koronaen var det cirka 140–170 deltakere. Nå holder vi et gjennomsnitt på rundt 100. Vi har ikke klart å hente oss helt inn etter koronaen, men det er fortsatt veldig givende, sier han.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>Men her på LANMine er det annerledes. Her kan man komme som man er. Det er en sosial arena med både gamle og nye vennskap.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="cstep">
+      <div class="bubble">
+        <p>- Jeg har opplevd at minst syv deltakere har kommet bort til meg og sagt at de gleder seg mer til LANMine enn til sydentur med familien, legger han muntert til.
+Gaming er mer enn tidsfordriv og en hobby. For noen er det et fristed, et fellesskap og venner.
+Selv om gaming på internett kan ha mørke sider, opplever alle deltakerne at LANMine er et trygt fristed med sosialt samvær, mye latter og hvor gode vennskap kan etableres.
+<p>Vi vil gi LANMine en ekstra takk for at de tok oss i mot med åpne armer.
+</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <section id="map-scroll" class="scrolly-map" aria-label="Kart som zoomer ved rulling">
+  <!-- Sticky viewport -->
+  <div id="mlViewport"></div>
+
+  <!-- Trinn som styrer kamerabevegelser -->
+  <div class="map-steps">
+    <div class="map-step" data-lat="20" data-lng="10" data-zoom="2" data-bear="0"  data-pitch="45">
+      <p>Gaming finnes over hele verden.</p>
+    </div>
+
+    <div class="map-step" data-lat="61" data-lng="8" data-zoom="5" data-bear="10" data-pitch="55">
+      <p>Vi beveger oss til Norge.</p>
+    </div>
+
+    <div class="map-step" data-lat="59.22" data-lng="10.94" data-zoom="9" data-bear="25" data-pitch="60">
+      <p>Så til Østfold / Fredrikstad & Hvaler.</p>
+    </div>
+
+    <div class="map-step" data-lat="59.07117" data-lng="10.94412" data-zoom="14" data-bear="35" data-pitch="60" data-marker="1">
+      <p>Her ligger LANMine i Hvalerhallen.</p>
+    </div>
+  </div>
+</section>
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+  </main>
+
+  <footer>
+  <p>
+    <a href="https://drive.google.com/drive/folders/11bK_CMoGWpPTWOaopeVPmTf_E5b9szKs?usp=sharing" target="_blank"> © 2025 Kommunikasjonsdesign-mappe i google Drive</a>
+  </p>
+</footer>
+
+
+  <!-- إبراز الفقرة النشطة فوق الهيرو -->
+  <script>
+  (() => {
+    const steps = document.querySelectorAll('#photo .step');
+    if (!steps.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => e.target.classList.toggle('is-active', e.isIntersecting));
+    }, { root: null, rootMargin: '0px 0px -40% 0px', threshold: 0 });
+    steps.forEach(s => io.observe(s));
+  })();
+  </script>
+
+  <!-- الكروسفيد لثلاث صور -->
+  <script>
+  (() => {
+    const sec  = document.getElementById('crossfade');
+    if (!sec) return;
+
+    const imgs = Array.from(sec.querySelectorAll('.xf-img'));
+    const N    = imgs.length;
+    if (N < 2) return;
+
+    // طول القسم = عدد الإطارات (للـ CSS)
+    sec.style.setProperty('--frames', String(N));
+
+    const vh    = () => window.innerHeight || document.documentElement.clientHeight;
+    const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+    let secTop = 0;
+
+    const measure = () => {
+      const r = sec.getBoundingClientRect();
+      secTop = r.top + window.scrollY;
+      tick();
+    };
+
+    const tick = () => {
+      const h = vh();
+      const y = window.scrollY - secTop;          // التقدّم داخل القسم
+      const p = clamp(y / h, 0, N - 1);           // 0 .. N-1
+      const i = Math.floor(p);
+      const t = p - i;
+
+      for (let k = 0; k < N; k++) imgs[k].style.opacity = 0;
+
+      const a = imgs[Math.min(i, N - 1)];
+      const b = imgs[i + 1];
+
+      if (b) {
+        a.style.opacity = String(1 - t);          // تلاشي الحالية
+        b.style.opacity = String(t);              // وظهور التالية
+      } else {
+        a.style.opacity = '1';                    // الأخيرة تبقى ظاهرة
+      }
+    };
+
+    measure();
+    addEventListener('scroll', tick,   { passive: true });
+    addEventListener('resize', measure);
+  })();
+  </script>
+
+  <!-- الرسم (اختياري) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('ssbGamingChart');
+    if (!window.Chart || !ctx) return;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['2020','2021','2022'],
+        datasets: [{ label: 'Andel barn (9–15) som gamer daglig (%)', data: [85,84,71] }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, title: { display: true, text: '%' } },
+          x: { title: { display: true, text: 'År' } }
+        }
+      }
+    });
+  });
+  </script>
+
+
+
+
+<script>
+(function () {
+  function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  setVH();
+  addEventListener('resize', setVH, {passive:true});
+  addEventListener('orientationchange', setVH, {passive:true});
+  document.addEventListener('visibilitychange', setVH);
+
+  // لو عندك مقطع الكروسفيد يعتمد على innerHeight، خليه يعيد القياس
+  const rerun = new Event('rerunCrossfade');
+  ['resize','orientationchange','visibilitychange'].forEach(evt =>
+    addEventListener(evt, () => dispatchEvent(rerun), {passive:true})
+  );
+})();
+</script>
+
+
+
+
+<script>
+(function() {
+  function setVH() {
+    // يفضَّل dVH إن كان مدعومًا
+    if (CSS && CSS.supports && CSS.supports('height: 100dvh')) {
+      document.documentElement.style.setProperty('--vh', '1dvh');
+    } else {
+      var vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', vh + 'px');
+    }
+  }
+  setVH();
+  window.addEventListener('resize', setVH, {passive:true});
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', setVH, {passive:true});
+  }
+})();
+</script>
+
+
+<script>
+(() => {
+  const sec   = document.querySelector('#base.scrolly-pairs');
+  if (!sec) return;
+
+  const steps = Array.from(sec.querySelectorAll('.sp-step'));
+  const texts = steps.map(s => s.querySelector('.sp-text'));
+  const imgs  = Array.from(sec.querySelectorAll('.sp-img'));
+
+  const vh = () => window.innerHeight || document.documentElement.clientHeight;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+  function tick(){
+    const h = vh();
+    // اختر الصورة الأقرب لمركز الشاشة
+    let focus = 0, best = 1e9;
+
+    steps.forEach((step, i) => {
+      const r = step.getBoundingClientRect();
+
+      // تقدّم محلي: يدخل من أسفل ثم يصعد
+      const pIn  = clamp(1 - (r.top / h), 0, 1);        // 0→1 أثناء الدخول
+      const y    = 20 - 30 * pIn;                       // 20vh → -10vh
+      const op   = 0.15 + 0.85 * pIn;                   // 0.15 → 1
+
+      texts[i].style.transform = `translateY(${y}vh)`;
+      texts[i].style.opacity   = op.toFixed(3);
+
+      // الأقرب لمركز الشاشة لتفعيل صورته
+      const dist = Math.abs((r.top + r.height/2) - h/2);
+      if (dist < best) { best = dist; focus = i; }
+    });
+
+    imgs.forEach((img, i) => img.style.opacity = (i === focus ? '1' : '0'));
+  }
+
+  // مراقبة تمرير
+  addEventListener('scroll', tick,  { passive:true });
+  addEventListener('resize', tick,  { passive:true });
+  // تشغيل أولي
+  tick();
+})();
+</script>
+
+
+
+
+<script>
+(() => {
+  const steps = document.querySelectorAll('#closing .cstep');
+  if (!steps.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => e.target.classList.toggle('is-active', e.isIntersecting));
+  }, { root: null, rootMargin: '0px 0px -40% 0px', threshold: 0 });
+  steps.forEach(s => io.observe(s));
+})();
+</script>
+
+
+
+
+
+<script>
+(() => {
+  // Norsk kommentarer i koden:
+  // 1) Initialiser MapLibre med en moderne demostil (ingen nøkkel trengs)
+  const map = new maplibregl.Map({
+  container: 'mlViewport',
+  style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+  center: [10, 20],
+  zoom: 2,
+  pitch: 45,
+  bearing: 0,
+  attributionControl: false
+});
+  // Optional: glatt scroll-zoom deaktiveres for konsistent stegvis styring
+  map.scrollZoom.disable();
+
+  // 2) Legg til minimal “glow” ved å øke lysstyrke og tåke
+  map.on('load', () => {
+  map.setFog({color:'rgb(8,10,14)', 'high-color':'rgb(30,40,60)', 'horizon-blend':0.2});
+  map.setLight({anchor:'viewport', color:'#dfe9ff', intensity:0.5});
+  // إذا أردت ارتفاعًا أكبر:
+  const b = map.getStyle().layers.find(l => l.type==='fill-extrusion' || l.id.includes('building'));
+  if (b) map.setPaintProperty(b.id, 'fill-extrusion-height',
+    ['*', ['get','render_height'], 1.2] // تكبير بسيط
+  );
+});
+
+  // 3) Observer steg og flytt kamera mykt
+  const steps = document.querySelectorAll('.map-step');
+  let marker; // én markør som flyttes ved siste steg
+
+  const flyToStep = (el) => {
+    const lat   = parseFloat(el.dataset.lat);
+    const lng   = parseFloat(el.dataset.lng);
+    const zoom  = parseFloat(el.dataset.zoom);
+    const bear  = el.dataset.bear  ? parseFloat(el.dataset.bear)  : map.getBearing();
+    const pitch = el.dataset.pitch ? parseFloat(el.dataset.pitch) : map.getPitch();
+
+    map.flyTo({
+      center: [lng, lat],
+      zoom,
+      bearing: bear,
+      pitch,
+      duration: 800,   // myk overgang
+      essential: true
+    });
+
+    // Marker for LANMine ved siste steg
+    if (el.dataset.marker === '1') {
+      if (!marker) {
+        marker = new maplibregl.Marker({ color: '#14cba8' })
+          .setLngLat([lng, lat])
+          .addTo(map);
+      } else {
+        marker.setLngLat([lng, lat]);
+      }
+    }
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) flyToStep(e.target);
+    });
+  }, { threshold: 0.6 });
+
+  steps.forEach(s => io.observe(s));
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // التقط قسم الكروس-فيد بأوسع احتمال
+  const section =
+    document.getElementById('psyche-fade') ||
+    document.querySelector('.nav-xf') ||
+    document.querySelector('[data-xf]');
+
+  const fixedTxt = document.querySelector('.xf-text-fixed');
+  if (!section || !fixedTxt) return;
+
+  function update(){
+    const r  = section.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    // يظهر إذا لامس القسم الشاشة
+    const visible = r.bottom > 0 && r.top < vh;
+    fixedTxt.style.opacity = visible ? '1' : '0';
+  }
+
+  // أول تشغيل + مستمعين
+  update();
+  window.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update, {passive:true});
+});
+</script>
+</body>
+</html>

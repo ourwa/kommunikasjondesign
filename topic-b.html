@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unge i NAV</title>
+
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- ارتفاع الخريطة فقط وبدون إطار -->
+  <style>
+    #leaflet-map{height:520px;width:100%;background:#fff;border:none;border-radius:0}
+    .leaflet-container{background:#fff!important}
+  </style>
+
+
+</head>
+
+<body class="nav page-topic-b">
+  <header class="nav-header fx-fade fx-glass">
+    <h1>Unge i NAV-systemet</h1>
+    <p class="lead">
+      Stadig flere unge i Norge mottar støtte fra NAV. Tall fra SSB viser at 22&nbsp;157 unge mellom 18 og 24 år
+      mottok arbeidsavklaringspenger eller uføretrygd i 2023.
+    </p>
+  </header>
+
+  <main class="nav-main">
+    <!-- HERO -->
+    <section id="nav-hero">
+  <div class="nav-panel">
+
+    <figure>
+      <img src="assets/images/nav.jpg" alt="NAV illustrasjonsfoto" loading="eager" />
+    </figure>
+
+    <div class="nav-panel-text">
+      <p>
+        I 2020 ble utbetalingen av arbeidsavklaringspenger (AAP) redusert for personer under 25,
+        men antallet som mottar støtteordningen har økt til tross for dette.
+        Hvordan har det blitt slik, og hvorfor har ikke trenden snudd?
+      </p>
+    </div>
+
+  </div>
+</section>
+
+    <!-- Tekst 1 -->
+    <section id="text-unge" aria-labelledby="text-unge-title" class="nav-section">
+      <h2 id="text-unge-title">Unge uføre</h2>
+      <p>
+        I 2024 var det 4&nbsp;885 menn som var uføretrygdet, mens hos unge kvinner var det 3&nbsp;483 uføretrygdet.
+        Statistikken viser en tredobling av antall unge uføre menn i alderen 18–24 år på 24 år.
+      </p>
+      <figure class="fx-raise fx-fade">
+        <img src="assets/images/skog.JPG" alt="Unge mottakere av AAP/uføretrygd" loading="lazy"/>
+      </figure>
+      <p>
+        Fylkene med flest unge uføre i alderen 20–29 år er på Vestlandet. Deretter kommer Akershus og Trøndelag. I Agder
+        er andelen uføre høyest relativt til befolkningen i 2024, deretter Østfold.Både Agder og Østfold har vært fylkene med flest uføretrygdet de siste 9 årene. 
+
+      </p>
+    </section>
+        <!-- Leaflet Map: النرويج فقط بدون بوردر -->
+    <section id="map" aria-labelledby="map-title" class="nav-section">
+      <h2 id="map-title">Fylker med uføre i fylkene for år 2024</h2>
+      <!-- ملاحظة: لتجنّب تضارب id، استخدمت div منفصل للخريطة -->
+      <div id="leaflet-map" role="region" aria-label="Norge – fylker"></div>
+    </section>
+
+
+    <!-- Tekst 2 + Crossfade -->
+    <section id="text-psyche" aria-labelledby="text-psyche-title" class="nav-section">
+      <h2 id="text-psyche-title">Psykisk helse blant unge</h2>
+
+      <p>
+        Eksperter peker på flere elementer bak økningen, som utfordringer i arbeidsmarkedet og økte levekostnader.
+        NAV jobber med tiltak for å hjelpe unge tilbake i arbeid og redusere avhengighet av støtte.
+      </p>
+
+      <div id="psyche-trigger" aria-hidden="true"></div>
+
+      <section id="psyche-fade" class="nav-xf" style="--frames: 4;">
+        <div class="nav-xf-viewport">
+          <img class="nav-xf-img" src="assets/images/umbrella_1.jpg" alt="Illustrasjon 1">
+          <img class="nav-xf-img" src="assets/images/umbrella_2.jpg" alt="Illustrasjon 2">
+          <img class="nav-xf-img" src="assets/images/umbrella_3.jpg" alt="Illustrasjon 3">
+          <img class="nav-xf-img" src="assets/images/umbrella_4.jpg" alt="Illustrasjon 4">
+        </div>
+      </section>
+
+     
+
+        <!-- Scroll Percent Image: يبدأ وينتهي ضمن هذا القسم فقط -->
+<section class="simg-wrap" aria-label="Scroll percent image">
+   
+
+  <figure class="simg-figure">
+    <p>
+        Det er en ting som går igjen i flere rapporter og studier, nemlig psykisk helse. Ifølge en rapport fra
+        Riksrevisjonen har nesten 70% av unge mottakere av AAP psykiske lidelser, noe som understreker at det er et
+        stort behov for bedre helsetjenester og støtteordninger for denne gruppen. I Norge skal alle ha tilgang på
+        gratis psykisk helsehjelp, men tilgjengeligheten og kvaliteten varierer betydelig mellom kommunene, og
+        ventetiden er ofte lang. </p>
+    <img src="assets/images/scrol_nav.png" alt="Illustrasjon" class="simg-img" loading="lazy">
+
+    <!-- قطاع SVG فوق الصورة مع قصّ بالدائرة لعدم التسريب -->
+    <svg class="simg-pie" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <clipPath id="simgClip">
+          <circle cx="90" cy="50" r="50"></circle>
+        </clipPath>
+      </defs>
+      <g clip-path="url(#simgClip)">
+        <path class="simg-wedge" fill="#e74c3c" d=""></path>
+      </g>
+    </svg>
+
+    <figcaption class="simg-overlay" aria-live="polite">
+      <span id="simg-pct">iugiygiyujcu</span>
+    </figcaption>
+  </figure>
+</section>
+
+       
+    </section>
+
+    <!-- Data table (hidden, source for map) -->
+    <section id="data-table" aria-labelledby="data-table-title" hidden aria-hidden="true">
+      <h2 id="data-table-title">Data (Table)</h2>
+      <table id="county-table">
+        <caption></caption>
+        <thead>
+          <tr><th scope="col">Fra høy til lavest</th><th scope="col">År 2024</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Agder</td><td>14,1</td></tr>
+          <tr><td>Innlandet</td><td>13,4</td></tr>
+          <tr><td>Østfold</td><td>13,2</td></tr>
+          <tr><td>Telemark</td><td>13,1</td></tr>
+          <tr><td>Nordland</td><td>12,4</td></tr>
+          <tr><td>Vestfold</td><td>12,0</td></tr>
+          <tr><td>Trøndelag</td><td>11,4</td></tr>
+          <tr><td>Finnmark</td><td>11,4</td></tr>
+          <tr><td>Troms</td><td>11,0</td></tr>
+          <tr><td>Buskerud</td><td>10,6</td></tr>
+          <tr><td>Møre og Romsdal</td><td>9,6</td></tr>
+          <tr><td>Rogaland</td><td>9,1</td></tr>
+          <tr><td>Vestlandet</td><td>9,0</td></tr>
+          <tr><td>Rogaland</td><td>9,1</td></tr>
+          <tr><td>Vestlandet</td><td>9,0</td></tr>
+          <tr><td>Oslo</td><td>7,6</td></tr>
+          <tr><td>Akershus</td><td>7,5</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Det er unge som sliter mest med psykiske helseutfordringer, og det er de eldste ungdommene og unge voksne som
+        har de største utfordringene. Under korona-pandemien ble den mentale helsen til barn og unge satt på prøve.
+        Isolasjon førte til mer depresjon og angst hos mange, og effekten av pandemien merkes fortsatt i dag. FHI:
+        Psykisk helse hos barn og unge.
+      </p>
+    </section>
+
+    <!-- Tekst 3 -->
+    <section id="text-ledighet" aria-labelledby="text-ledighet-title" class="nav-section fx-raise fx-fade">
+      <h2 id="text-ledighet-title">Økt arbeidsledighet</h2>
+      <p>
+        Arbeidsledigheten har økt blant de yngste aldersgruppene. Mellom 2022 og 2023 fikk vi omtrent 11 000 flere arbeidsledige, derav rundt halvparten av dem under 25 år.
+        Forskning viser at arbeidsledighet blant de yngre kan få langvarige konsekvenser, spesielt for menn. The lost generation: Effects of youth labor market opportunities on long-term labor market outcomes - SSB
+        Dette er altså et samfunnsproblem. Men tallene viser ikke nødvendigvis at velferdsstaten er dysfunksjonell for de unge. Det kan også sees på som en slags suksess. Velferdsstaten fanger opp de som sliter i større grad enn i mange andre land. De underliggende problemene må adresseres, men forslag som å kutte i velferdsordninger kan gjøre mer skade enn nytte. Denne rapporten fra SSB analyserer hvordan underfinansiering av velferdsstaten kan føre til langsiktige negative konsekvenser på helse, sysselsetting og økonomisk vekst. Rapporten viser også at å prioritere velferdsordninger gir bedre samfunnsøkonomisk avkastning enn å kutte i skatter. 
+        Utfordringene er kanskje mange og komplekse, men vi har god forskning som forteller oss hvordan de kan løses. Problemer som rammer en mindre gruppe mennesker i samfunnet vårt، rammer ofte oss alle på andre måter. Norge har nok ressurser til å styrke de unge og gi dem en vei inn i arbeidslivet، men det krever politisk vilje، og må prioriteres på alle nivåer.
+      </p>
+    </section>
+
+
+    <!-- Kilder -->
+    <section id="links" aria-labelledby="links-title" class="nav-section">
+      <h2 id="links-title">Kilder</h2>
+      <ul class="nav-links">
+        <li><a href="https://www.ssb.no/sosiale-forhold-og-kriminalitet" target="_blank" rel="noopener">SSB – Sosiale forhold og kriminalitet</a></li>
+        <li><a href="https://www.fhi.no/he/fr/folkehelserapporten/psykisk-helse/psykisk-helse-hos-barn-og-unge/" target="_blank" rel="noopener">FHI – Psykisk helse hos barn og unge</a></li>
+        <li><a href="https://www.riksrevisjonen.no" target="_blank" rel="noopener">Riksrevisjonen – AAP og unge</a></li>
+        <li><a href="https://www.ssb.no/en/arbeid-og-lonn/artikler-og-publikasjoner/the-lost-generation-effects-of-youth-labor-market-opportunities-on-long-term-labor-market-outcomes" target="_blank" rel="noopener">SSB – The lost generation</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+  <p>
+    <a href="https://drive.google.com/drive/folders/11bK_CMoGWpPTWOaopeVPmTf_E5b9szKs?usp=sharing" target="_blank"> © 2025 Kommunikasjonsdesign-mappe i google Drive</a>
+  </p>
+</footer>
+
+
+  <!-- Crossfade JS -->
+  <script>
+  (() => {
+    const wrap = document.getElementById('text-psyche');
+    const sec  = document.getElementById('psyche-fade');
+    if (!wrap || !sec) return;
+
+    const imgs = Array.from(sec.querySelectorAll('.nav-xf-img'));
+    const N = imgs.length;
+    if (N < 2) return;
+
+    const SPEED = 0.2;
+    const vh    = () => window.innerHeight || document.documentElement.clientHeight;
+    const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+    let startY = 0;
+
+    function getPageOffset(el){
+      let y = 0;
+      while (el) { y += el.offsetTop || 0; el = el.offsetParent; }
+      return y;
+    }
+
+    function measure(){
+      startY = getPageOffset(wrap);
+      tick();
+    }
+
+    function tick(){
+      const y = window.scrollY - startY;
+      const p = clamp(y / (vh() * SPEED), 0, N - 1);
+      const i = Math.floor(p);
+      const t = p - i;
+
+      for (let k=0;k<N;k++) imgs[k].style.opacity = 0;
+
+      const a = imgs[i];
+      const b = imgs[i+1];
+      if (b){ a.style.opacity = String(1 - t); b.style.opacity = String(t); }
+      else  { a.style.opacity = '1'; }
+    }
+
+    ['html','body','.nav','.nav-main'].forEach(sel=>{
+      const el = document.querySelector(sel);
+      if (el) el.style.overflow = 'visible';
+    });
+
+    addEventListener('scroll', tick, {passive:true});
+    addEventListener('resize', measure);
+    measure();
+  })();
+  </script>
+
+  <!-- Scroll effects .fx-fade -->
+  <script>
+function handleFadeOnScroll() {
+  const winH = window.innerHeight;
+  document.querySelectorAll('.fx-fade').forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < winH - 200) el.classList.add('show');
+    if (top > winH)       el.classList.remove('show');
+  });
+}
+
+document.addEventListener("scroll", handleFadeOnScroll);
+document.addEventListener("DOMContentLoaded", handleFadeOnScroll);
+</script>
+
+  <!-- Leaflet: Norge bare uten بوردر أو خلفية -->
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1) Read data from table -> Map(name -> value)
+  const table = document.querySelector('#county-table');
+  if (!table) return;
+
+  const norm = s =>
+    (s || '')
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, ' ')
+      .replace(/\./g, '');
+
+  const alias = new Map([
+    ['vestlandet', 'vestland'] // name fix
+  ]);
+
+  const dataMap = new Map();
+  table.querySelectorAll('tbody tr').forEach(tr => {
+    const [nTd, vTd] = tr.querySelectorAll('td');
+    if (!nTd || !vTd) return;
+
+    let key = norm(nTd.textContent);
+    if (alias.has(key)) key = alias.get(key);
+
+    const val =
+      Number(
+        String(vTd.textContent)
+          .replace(/\s/g, '')
+          .replace(',', '.')
+          .replace(/[^\d.]/g, '')
+      ) || 0;
+
+    dataMap.set(key, val);
+  });
+
+  // 2) Top 4 fylker (largest values)
+  const top4 = [...dataMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([k]) => k);
+
+  const isTop4 = new Set(top4);
+
+  // 3) Load GeoJSON
+  const res = await fetch('assets/geo/fylker_2024.geojson', { cache: 'no-store' });
+  if (!res.ok) {
+    console.error('Kunne ikke laste GeoJSON', res.status);
+    return;
+  }
+  const geo = await res.json();
+
+  // Build map: normalized key -> "short" display name (første del før " - ")
+  const nameByKey = {};
+  geo.features.forEach(f => {
+    const rawName = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
+    const key = norm(rawName);
+    if (!nameByKey[key]) {
+      nameByKey[key] = rawName.split(' - ')[0];
+    }
+  });
+
+  // 4) Red gradient for non–top-4 fylker
+  const values = [...dataMap.values()];
+  const vmin = Math.min(...values);
+  const vmax = Math.max(...values, 1);
+
+  // White -> soft pink -> medium red (for non-top4 with data)
+  const color = x => {
+    const t = Math.max(0, Math.min(1, (x - vmin) / (vmax - vmin || 1)));
+    const r = Math.round(255 - 100 * t);  // 255 → 155
+    const g = Math.round(240 - 140 * t);  // 240 → 100
+    const b = Math.round(240 - 140 * t);  // 240 → 100
+    return `rgb(${r},${g},${b})`;
+  };
+
+  // 5) Create map – frozen (no drag/zoom), only click
+  const map = L.map('leaflet-map', {
+    zoomControl: false,
+    attributionControl: false,
+    dragging: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    touchZoom: false
+  });
+
+  map.getContainer().style.background = 'transparent';
+
+  // 6) Norway layer – top4 strong red, others gradient, no-data white
+  let hovered;
+  let resetTimeout;
+
+  const layer = L.geoJSON(geo, {
+    style: f => {
+      const n = norm(f.properties.navn || f.properties.fylkesnavn || '');
+      const hasVal = dataMap.has(n);
+      const v = hasVal ? (dataMap.get(n) ?? 0) : null;
+
+      let fillColor;
+      let fillOpacity = 1;
+
+      if (!hasVal || v === null) {
+        fillColor = '#ffffff';          // no data
+        fillOpacity = 0.9;
+      } else if (isTop4.has(n)) {
+        fillColor = '#dc2626';          // top 4
+      } else {
+        fillColor = color(v);           // others
+      }
+
+      return {
+        color: 'transparent',
+        weight: 0,
+        fillColor,
+        fillOpacity
+      };
+    },
+    onEachFeature: (f, lyr) => {
+      const name = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
+      const key = norm(name);
+      const hasVal = dataMap.has(key);
+      const v = hasVal ? (dataMap.get(key) ?? 0) : null;
+
+      const tooltipLabel = hasVal
+        ? `${name}: ${v.toLocaleString('nb-NO')} %`
+        : `${name}: ingen data`;
+
+      // Tooltip
+      lyr.bindTooltip(tooltipLabel, { sticky: true });
+
+      // Hover
+      lyr.on('mouseover', () => {
+        hovered = lyr;
+        lyr.setStyle({ color: '#1e3a8a', weight: 1.5, fillOpacity: 1 });
+        lyr.bringToFront();
+      });
+
+      lyr.on('mouseout', () => {
+        if (hovered === lyr) hovered = null;
+
+        const n = norm(f.properties.navn || f.properties.fylkesnavn || '');
+        const hasVal2 = dataMap.has(n);
+        const v2 = hasVal2 ? (dataMap.get(n) ?? 0) : null;
+
+        let fillColor;
+        let fillOpacity = 1;
+
+        if (!hasVal2 || v2 === null) {
+          fillColor = '#ffffff';
+          fillOpacity = 0.9;
+        } else if (isTop4.has(n)) {
+          fillColor = '#dc2626';
+        } else {
+          fillColor = color(v2);
+        }
+
+        lyr.setStyle({
+          color: 'transparent',
+          weight: 0,
+          fillColor,
+          fillOpacity
+        });
+      });
+
+      // Click: zoom to fylke for 3 seconds, then back to full Norway
+      lyr.on('click', () => {
+        if (resetTimeout) {
+          clearTimeout(resetTimeout);
+        }
+
+        map.fitBounds(lyr.getBounds(), { padding: [20, 20] });
+
+        resetTimeout = setTimeout(() => {
+          fit(); // back to full bounds
+        }, 3000);
+      });
+    }
+  }).addTo(map);
+
+  // 7) Fit to Norway & resize handling
+  const bounds = layer.getBounds();
+
+  function fit() {
+    map.invalidateSize();
+    map.fitBounds(bounds, { padding: [0, 0] });
+  }
+
+  map.setView([64.5, 16], 4);
+  requestAnimationFrame(fit);
+  setTimeout(fit, 120);
+  window.addEventListener('resize', fit);
+
+  map.setMaxBounds(bounds.pad(0.25));
+  map.setMinZoom(map.getBoundsZoom(bounds));
+
+  // 8) Legend: only fylker that have data, "Name: prosent %"
+  const legend = L.control({ position: 'bottomright' });
+
+  legend.onAdd = () => {
+    const div = L.DomUtil.create('div');
+    div.style.cssText =
+      'background:#000c;color:#fff;padding:.7rem 1rem;border-radius:16px;font:14px system-ui;line-height:1.4;max-height:60vh;overflow:auto;';
+
+    let html = '<div style="font-weight:700;margin-bottom:.4rem">Fylker</div>';
+
+    // Build list from dataMap (only fylker with value)
+    const items = [...dataMap.entries()].map(([key, value]) => {
+      const name = nameByKey[key] || key;                 // short display name
+      const fillColor = isTop4.has(key) ? '#dc2626' : color(value);
+      return { key, name, value, fillColor };
+    });
+
+    // Sort by value desc
+    items.sort((a, b) => b.value - a.value);
+
+    // Render rows: "Navn: 14,1 %"
+    for (const item of items) {
+      const valueText = `${item.value.toLocaleString('nb-NO')} %`;
+      html += `
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
+          <span style="display:inline-block;width:20px;height:14px;background:${item.fillColor};border:1px solid rgba(255,255,255,.2);"></span>
+          <span>${item.name}: ${valueText}</span>
+        </div>
+      `;
+    }
+
+    div.innerHTML = html;
+    return div;
+  };
+
+  legend.addTo(map);
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.querySelector('.simg-wrap');
+  const figure  = document.querySelector('.simg-figure');
+  const pctEl   = document.querySelector('#simg-pct');
+  if (!section || !figure || !pctEl) return;
+
+  const MAX = 0.70;  // 70%
+  let range = 0, startY = 0, ticking = false;
+
+  const offTop = el => { let y=0; while(el){ y += el.offsetTop||0; el = el.offsetParent; } return y; };
+  const clamp01 = v => v<0?0:v>1?1:v;
+
+  function measure(){
+    range  = Math.max(0, section.offsetHeight - window.innerHeight);
+    startY = offTop(section);
+    update();
+  }
+
+  function update(){
+    const y   = window.scrollY - startY;
+    const p   = clamp01(range ? y / range : 0); // تقدم داخل القسم 0..1
+    const s   = p * MAX;                         // يوقف عند 70%
+    const deg = Math.round(s * 360);            // 0..252
+
+    figure.style.setProperty('--deg', deg + 'deg');   // ندير القطاع
+    // بدل النسبة المئوية بنص ثابت يزداد سطوعه تدريجيًا
+pctEl.textContent = 'Ifølge en rapport fra Riksrevisjonen har nesten 70% av unge mottakere av AAP psykiske lidelser.';               // غيّر النص حسب رغبتك
+const brightness = 0 + s * -5;        // من 0.6 إلى 1.4 تقريبًا
+pctEl.style.filter = `brightness(${brightness})`;
+    ticking = false;
+  }
+
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
+
+  window.addEventListener('scroll', onScroll,  { passive:true });
+  window.addEventListener('resize', measure,   { passive:true });
+  measure();
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elbilens utvikling i Norge</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <!--chart.js for chart/infoviz demos-->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script defer
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+
+
+
+
+
+<body class="page-topic-e">
+    <header>
+        <h1>Elbilens utvikling i Norge</h1>
+    </header>
+    <main>
+        <!--base-->
+        <section id="base" aria-labelledby="base-title">
+          <section class="full-banner">
+  <figure>
+    <img src="assets/images/biler_1.jpg" alt="elbil" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+</section>
+           
+  
+
+           
+            <figure>
+       
+
+
+        <p>I 2010 rullet de første registrerte elbilene ut på norske veier. På denne tiden var det diesel- og bensinbiler som dominerte trafikkbildet. I dag er det flere registrerte elbiler enn rene bensinbiler i Norge.</p>
+        <figcaption></figcaption>
+      </figure>
+
+
+
+
+      <section id="timeline-section" aria-labelledby="timeline-title" class="nav-section">
+  <h2 id="timeline-title">Elbileiere gjennom årene</h2>
+
+  <div class="timeline">
+    <div class="container left">
+      <div class="content">
+        <h3>2010</h3>
+        
+        <h2>3347</h2>
+        <p>Tilbake i 2010 var det registrert 3 347 elbiler, mens det i dag er registrert 888 023 elbiler. Hvordan har denne utviklingen foregått, og har elbilene kommet for å bli?</p>
+      </div>
+    </div>
+    <div class="container right">
+      <div class="content">
+        <h3>2012</h3>
+        <h2>9565</h2>
+        <p>Tallet fortsatte å øke og i 2012 var det nesten registrert 10.000 elbileiere.</p>
+      </div>
+    </div>
+
+    <div class="container left">
+      <div class="content">
+        <h3>2013</h3>
+        <h2>19678</h2>
+        <p>Gjennom de første årene ser vi at flere får interessen for elbiler og at antallet elbileiere fortsetter å doble seg for hvert år.</p>
+      </div>
+    </div>
+
+    
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+            <img src="assets/images/charger.jpg" alt="elbil" loading="lazy" />
+
+            <h2 id="base-title">Et politisk trekk</h2>
+            <p>Med gratis parkering, fritak for bompenger og gratis ferger la norske myndigheter til rette for at elbiler skulle bli et mer attraktivt valg enn fossilbiler. I tillegg ønsket de å øke salget av elbiler ved å gi fritak for engangsavgift og merverdiavgift. På dette tidspunktet var strømprisene for norske husholdninger blant de laveste i Europa, noe som bidro til at kostnadene ved hjemmelading av elbil ble svært gunstige.</p>
+        <figcaption></figcaption>
+
+
+
+
+
+          <section id="timeline-section" aria-labelledby="timeline-title" class="nav-section">
+  <h2 id="timeline-title">Elbileiere gjennom årene</h2>
+
+  <div class="timeline">
+    <div class="container left">
+      <div class="content">
+        <h3>2015</h3>
+        <h2>73312</h2>
+        <p>Gjennom god tilrettelegging og en rekke fordeler for elbileiere økte elbilsalget betraktelig fra år til år. 
+
+Antallet registrerte elbiler steg fra 3 347 i 2010 til 73 312 i 2015, noe som viser hvordan regjeringens tiltak har bidratt til å påvirke det norske samfunnet til å velge elbil.</p>
+      </div>
+    </div>
+    <div class="container right">
+      <div class="content">
+        <h3>2025</h3>
+        <h2>888023</h2>
+        <p>I dag er hele 88% av nyregistrerte personbiler elektriske, mens andelen dieselbiler ligger på 2,3 % og bensinbiler på 0,8 %. Dette utgjør en markant endring sammenlignet med tallene for ti år siden..</p>
+       
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+ <img src="assets/images/bil.JPG" alt="elbil" loading="lazy" /> 
+         <!--text-->
+        <section id="text" aria-labelledby="text-title">
+            <h2 id="text-title">Geografiske forhold kan spille inn</h2>
+            <p>Mange velger å kjøpe elbiler på grunn av geografiske forhold, særlig pendlere som kjører mellom hjem og arbeidsplass. Statistikken viser at det er flest elbileiere i Akershus, som grenser til Oslo. På andreplass kommer Vestlandet. Man kunne kanskje tro at Oslo selv ville ligge øverst på listen, men ettersom hovedstaden har et godt kollektivtilbud og med korte avstander er det naturlig at mange heller velger buss, trikk eller T-bane fremfor bil. Likevel ligger Oslo på en solid tredjeplass, med hele 112 045 registrerte elbiler.</p>
+            <p>I Finnmark finner vi det laveste antallet elbileiere i landet. De store avstandene, få ladestasjoner og lange vintre gjør elbilen mindre praktisk for mange.</p>
+        </section>
+
+        
+<section id="elbil-map-section" aria-labelledby="elbil-map-title">
+  <!-- العنوان في منتصف الصفحة فوق العمودين -->
+  <h2 id="elbil-map-title" class="elbil-map-title">
+    Fylker høyest – lavest elbileiere
+  </h2>
+
+  <!-- صف: يسار نص – يمين خريطة -->
+  <div class="elbil-map-row">
+    <div class="left-side">
+      <div class="info-box">
+        <p>
+          Akershus, Vestlandet og Oslo er fylker med flest elbileiere i Norge.
+        </p>
+      </div>
+    </div>
+
+    <div class="right-side">
+      <div id="elbil-map"></div>
+    </div>
+  </div>
+</section>
+
+<section id="finnmark-map-section" aria-labelledby="finnmark-map-title">
+ 
+
+  <div class="map-wrapper">
+    <!-- الخريطة -->
+    <div id="finnmark-map"></div>
+
+    <!-- بوكس النص -->
+    <div class="map-info-box">
+      <p>
+        I Finnmark finner vi det laveste antallet elbileiere i landet. 
+        De store avstandene, få ladestasjoner og lange vintre gjør elbilen 
+        mindre praktisk for mange.
+      </p>
+    </div>
+  </div>
+</section>
+       
+<!--data table-->
+       
+
+  <table id="county-table" class="visually-hidden">
+    <tbody>
+      <tr><td>Akershus</td><td>143 532</td><td>Innlandet</td><td>42 303</td></tr>
+      <tr><td>Vestlandet</td><td>119 225</td><td>Vestfold</td><td>42 061</td></tr>
+      <tr><td>Oslo</td><td>112 045</td><td>Møre og Romsdal</td><td>41 486</td></tr>
+      <tr><td>Rogaland</td><td>87 826</td><td>Nordland</td><td>28 075</td></tr>
+      <tr><td>Trøndelag</td><td>75 763</td><td>Telemark</td><td>27 191</td></tr>
+      <tr><td>Østfold</td><td>53 412</td><td>Troms</td><td>17 972</td></tr>
+      <tr><td>Agder</td><td>48 950</td><td>Finnmark</td><td>4494</td></tr>
+      <tr><td>Buskerud</td><td>43 557</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <figure style="max-width:680px;margin:1.5rem auto;">
+    <canvas id="countyChart"></canvas>
+    <figcaption style="text-align:center;color:#889;font-size:.85rem;margin-top:.4rem;">
+     
+    </figcaption>
+  </figure>
+
+  <p>
+    Elbilen har på kort tid gått fra å være et sjeldent syn til å bli en bil man ser overalt. Tallene viser tydelig at elbilen har kommet for å bli, og at den nå dominerer salget av nyregistrerte biler. Basert på innhentet data ser det ut til at salget av elbiler vil fortsette å øke i årene som kommer.
+  </p>
+</section>
+
+        <section id="links" aria-labelledby="links-title">
+  <h2 id="links-title">Kilder</h2>
+  <p><a href="https://elbil.no/om-elbil/elbilstatistikk/" target="_blank" rel="noopener">
+        Elbilstatistikk – elbil.no</p>
+  <p><a href="https://www.tv2.no/broom/historisk-flere-elbiler-enn-rene-bensinbiler/17007597/" target="_blank" rel="noopener">
+        Historisk flere elbiler enn bensinbiler – TV2
+      </a></p>
+      
+    <p><a href="https://elbil.no/om-elbil/elbilstatistikk/elbilsalg/" target="_blank" rel="noopener">
+        Elbilsalg – elbil.no
+      </a></p>
+   <p><a href="https://www.tv2.no/broom/trodde-du-oslo-folk-kjopte-flest-elbiler/17355129/" target="_blank" rel="noopener">
+        Hvem kjøper flest elbiler? – TV2
+      </a></p>
+
+    <p><a href="https://elbil.no/om-elbil/elbilstatistikk/elbilbestand/" target="_blank" rel="noopener">
+        Elbilbestand – elbil.no
+      </a></p>
+</section>
+
+       
+        
+    </main>
+
+    <footer>
+  <p>
+    <a href="https://drive.google.com/drive/folders/11bK_CMoGWpPTWOaopeVPmTf_E5b9szKs?usp=sharing" target="_blank"> © 2025 Kommunikasjonsdesign-mappe i google Drive</a>
+  </p>
+</footer>
+
+
+
+
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const div = document.getElementById('elbil-map');
+  if (!div || !window.L) return;
+
+  const res = await fetch('assets/geo/fylker_2024.geojson', { cache: 'no-store' });
+  if (!res.ok) return;
+  const geo = await res.json();
+
+  const norm = s => (s || '').toLowerCase().trim();
+
+  // الفيلكات الثلاثة بالأخضر
+  const greenSet = new Set(['akershus', 'vestland', 'oslo']);
+
+  // إنشاء الخريطة بدون تفاعل تمامًا
+  const map = L.map('elbil-map', {
+    zoomControl: false,
+    attributionControl: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    dragging: false,
+    touchZoom: false,
+    keyboard: false
+  });
+
+  // رسم الفيلكات بنفس شكل خريطة Finnmark
+  const layer = L.geoJSON(geo, {
+    style: feature => {
+      const name = norm(feature.properties.navn || feature.properties.fylkesnavn);
+      const isGreen = greenSet.has(name);
+
+      return {
+        color: '#111',
+        weight: isGreen ? 1.4 : 0.4,
+        fillColor: isGreen ? '#16a34a' : '#4b5563',
+        fillOpacity: isGreen ? 0.95 : 0.45
+      };
+    }
+  }).addTo(map);
+
+  // تثبيت الإطار على كامل النرويج
+  const bounds = layer.getBounds();
+  map.fitBounds(bounds, { padding: [10,10] });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const mapDiv = document.getElementById('finnmark-map');
+  if (!mapDiv || !window.L) return;
+
+  // إنشاء الخريطة بدون زووم حر
+  const map = L.map('finnmark-map', {
+    zoomControl: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    touchZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    attributionControl: false
+  });
+
+  // تحميل GeoJSON نفسه اللي استخدمته في صفحة B
+  const res = await fetch('assets/geo/fylker_2024.geojson', { cache: 'no-store' });
+  if (!res.ok) {
+    console.error('Kunne ikke laste fylker_2024.geojson');
+    return;
+  }
+  const geo = await res.json();
+
+  // نعمل normalisering للأسماء
+  const normalize = s =>
+    (s || '')
+      .toLowerCase()
+      .replace(/ø/g,'o')
+      .replace(/å/g,'a')
+      .replace(/æ/g,'ae')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  const layer = L.geoJSON(geo, {
+    style: f => {
+      const name = normalize(f.properties.navn || f.properties.fylkesnavn);
+      // نعتبرها Finnmark لو الاسم يحتوي "finnmark"
+      const isFinnmark = name.includes('finnmark');
+
+      return {
+        color: '#000',                                  // حدود سوداء خفيفة
+        weight: 0.6,
+        fillColor: isFinnmark ? '#e11d48' : '#777',     // Finnmark أحمر، الباقي رمادي
+        fillOpacity: isFinnmark ? 0.95 : 0.65
+      };
+    },
+    onEachFeature: (f, lyr) => {
+      const rawName = f.properties.navn || f.properties.fylkesnavn || 'Ukjent';
+      const key = normalize(rawName);
+      const isFinnmark = key.includes('finnmark');
+
+      lyr.bindTooltip(rawName, { sticky: true });
+
+      lyr.on('mouseover', () => {
+        lyr.setStyle({
+          weight: 1.2,
+          fillOpacity: isFinnmark ? 1 : 0.8
+        });
+      });
+      lyr.on('mouseout', () => {
+        lyr.setStyle({
+          weight: 0.6,
+          fillOpacity: isFinnmark ? 0.95 : 0.65
+        });
+      });
+    }
+  }).addTo(map);
+
+  const bounds = layer.getBounds();
+  map.fitBounds(bounds, { padding: [30, 30] });
+
+  const fixedZoom = map.getZoom();
+  map.setMinZoom(fixedZoom);
+  map.setMaxZoom(fixedZoom);
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const tbody  = document.querySelector('#county-table tbody');
+  const canvas = document.getElementById('countyChart');
+  if (!tbody || !canvas || !window.Chart) return;
+
+  const labels = [];
+  const values = [];
+
+  // دالة بسيطة لتنظيف الأرقام "143 532" → 143532
+  const parseNum = txt =>
+    Number(String(txt).replace(/\s/g, '').replace(',', '.')) || 0;
+
+  tbody.querySelectorAll('tr').forEach(tr => {
+    const tds = tr.querySelectorAll('td');
+    if (tds.length >= 2) {
+      const name1  = tds[0].textContent.trim();
+      const value1 = parseNum(tds[1].textContent);
+      if (name1 && value1) {
+        labels.push(name1);
+        values.push(value1);
+      }
+    }
+    if (tds.length >= 4) {
+      const name2  = tds[2].textContent.trim();
+      const value2 = parseNum(tds[3].textContent);
+      if (name2 && value2) {
+        labels.push(name2);
+        values.push(value2);
+      }
+    }
+  });
+
+  const ctx = canvas.getContext('2d');
+
+  const colors = [
+    '#245a86', '#e07a2f', '#2f7d32', '#4a90e2',
+    '#9b4aa6', '#7cb342', '#283b4d', '#bf5b2c',
+    '#33691e', '#4fc3f7', '#512da8', '#8d6e63'
+  ];
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors.slice(0, values.length),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            boxWidth: 12
+          }
+        },
+        title: {
+          display: true,
+          text: 'Elbilbestand etter fylke',
+          color: '#ffffff',   
+          font: {
+        size: 28,     // هنا تغيّر الحجم
+        weight: 'bold'
+      }
+        }
+      }
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2332 @@
+/* ==design Tokens ==*/
+:root{
+  /* base colors */
+  --bg: #0b0e13;           /* page */
+  --panel: #161d2c;        /* sections/cards */
+  --elev: #171d28;         /* subtle raised */
+  --text: #ffffff;         /* main text */
+  --muted:#96a2b5;         /* secondary text */
+  --border:#263041;        /* borders */
+  --brand:#f8f8f5;         /* primary accent */
+  --accent:#14cba8;        /* secondary accent */
+  --shadow: 0 14px 40px rgba(0,0,0,.35);
+
+  /* feedback */
+  --violet:#8b5cf6;
+  --green:#22c55e;
+  --red:#ef4444;
+  --warn:#f59e0b;
+
+  /* spacing scale */
+  --space-1:.5rem;
+  --space-2:.75rem;
+  --space-3:1rem;
+  --space-4:1.25rem;
+  --space-5:1.75rem;
+  --space-6:2.25rem;
+
+  /* radius */
+  --radius:14px;
+
+  /* fluid type */
+  --fs-1: clamp(13px, .75vw + 10px, 14px);
+  --fs-2: clamp(15px, .8vw + 10px, 16px);
+  --fs-3: clamp(18px, 1.1vw + 10px, 22px);
+  --fs-4: clamp(22px, 1.6vw + 10px, 28px);
+  --fs-5: clamp(28px, 2.2vw + 10px, 36px);
+
+  color-scheme: dark;
+}
+
+/* optional light fallback if */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --elev:#f0f3f8;
+    --text:#1e283e; --muted:#5b6472; --border:#e5eaf1;
+    --brand:#3557ff; --accent:#06b6d4;
+    --shadow: 0 12px 30px rgba(0,0,0,.08);
+    color-scheme: light;
+  }
+}
+
+/*===base / reset===*/
+*{box-sizing:border-box}
+html,body{height:100%}
+html, body{overflow-x:hidden}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: var(--fs-2);
+  line-height:1.65;
+  letter-spacing:.1px;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 700px at 0% -10%, rgba(90,127,255,.10), transparent 55%),
+    radial-gradient(900px 600px at 100% 10%, rgba(20,203,168,.08), transparent 60%),
+    var(--bg);
+}
+
+/* Containers */
+header, main, footer{
+  max-width: 980px;
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4);
+}
+header{ padding-top: var(--space-6); }
+.lead{ color: var(--muted); }
+
+/* sections as panels */
+section{
+  background:
+    linear-gradient(180deg, color-mix(in oklch, var(--panel), #fff 2%), var(--panel));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-3) 0 var(--space-5);
+  box-shadow: var(--shadow);
+}
+
+/*==typography ==*/
+h1{ font-size: var(--fs-5); line-height:1.12; margin:.2rem 0 1rem }
+h2{ font-size: var(--fs-4); line-height:1.18; margin:.15rem 0 1rem; color: var(--brand) }
+h3{ font-size: var(--fs-3); line-height:1.25; margin:.15rem 0 .85rem; color: var(--accent) }
+p, li{ font-size: clamp(1rem, .35vw + .95rem, 1.1rem); }
+p{ margin:.35rem 0 1rem }
+strong{ font-weight:700 }
+
+/* links */
+a{ color: var(--brand); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+
+/* nice focus ring */
+:where(a,button,input,select,textarea,summary):focus-visible{
+  outline:3px solid color-mix(in oklch, var(--brand), transparent 70%);
+  outline-offset:2px; border-radius:10px;
+}
+
+/*==media ==*/
+img, video, audio, canvas, iframe{
+  display:block; max-width:100%;
+  margin:.6rem 0 1.1rem;
+  border-radius: 12px;
+}
+figure{ margin: 0; }
+figure img{ border:1px solid var(--border); background: var(--elev); }
+figure figcaption{
+  font-size:.9rem; color: var(--muted);
+  margin-top:.35rem; text-align:center;
+}
+
+/* iframe wrapper */
+.responsive-embed{
+  position:relative; width:100%; max-width: 900px;
+  padding-bottom:56.25%; height:0; overflow:hidden;
+  border-radius:12px; border:1px solid var(--border);
+  background: var(--elev);
+}
+.responsive-embed iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+}
+
+/* ==tables ==*/
+table{
+  border-collapse: collapse;
+  width:100%;
+  margin-top:.75rem;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background: var(--elev);
+}
+caption{
+  text-align:left; font-weight:700; padding:.6rem .75rem; color: var(--muted);
+}
+th, td{
+  border-top:1px solid var(--border);
+  padding:.7rem .8rem; text-align:left; vertical-align: top;
+}
+thead th{
+  background: color-mix(in oklch, var(--panel), #fff 3%);
+  color: var(--text);
+  border-top:0;
+}
+tbody tr:nth-child(odd){ background: color-mix(in oklch, var(--elev), #000 6%); }
+
+/*==code ==*/
+code, pre{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+pre{
+  background:#0f172a; color:#e2e8f0;
+  padding: var(--space-3);
+  border-radius:12px; overflow:auto;
+  border:1px solid #1f2937;
+}
+
+/*==cards & home grid ==*/
+.grid{ display:grid; grid-template-columns: 1fr; gap: 1.2rem; }
+@media(min-width:760px){ .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media(min-width:1100px){ .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+.card-link{ display:block; color:inherit; text-decoration:none; transform:translateZ(0); transition: transform .18s ease, filter .18s ease; }
+.card-link:hover{ transform: translateY(-2px); filter: brightness(1.02); }
+
+.card{
+  background: linear-gradient(180deg, color-mix(in oklch, var(--panel), #fff 2%), var(--panel));
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  overflow:hidden;
+  box-shadow: var(--shadow);
+}
+.card img{
+  width:100%; height:auto; object-fit:cover;
+  max-height: 220px;
+  border-bottom:1px solid var(--border);
+}
+.card .content{ padding: 1rem 1rem 1.1rem; }
+.card h2, .card h3{ margin-top:.2rem; }
+.card .badge{
+  display:inline-block; font-size:.8rem; padding:.25rem .55rem; border-radius:999px;
+  background: color-mix(in oklch, var(--brand), transparent 85%);
+  border:1px solid color-mix(in oklch, var(--brand), #000 12%);
+}
+
+/*==details/summary==*/
+details{
+  background: var(--elev);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.6rem .75rem;
+  margin-top:.75rem;
+}
+details > summary{
+  list-style:none; cursor:pointer; font-weight:700;
+  padding:.35rem .25rem; color: var(--text);
+}
+details[open]{ box-shadow: 0 8px 20px rgba(0,0,0,.22); }
+
+/*==forms (if any)==*/
+input, select, textarea{
+  width:100%; padding:.8rem 1rem; border-radius:12px;
+  border:1px solid var(--border); background: var(--elev); color: var(--text);
+  outline:none;
+}
+input:focus, select:focus, textarea:focus{
+  border-color: color-mix(in oklch, var(--brand), #000 10%);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--brand), transparent 85%);
+}
+
+/*===footer ===*/
+footer{
+  color: var(--muted);
+  font-size:.85rem;
+  text-align:center;
+  padding: var(--space-6) var(--space-4) var(--space-5);
+  border-top: 1px solid color-mix(in oklch, var(--border), #000 10%);
+}
+
+/*===home scrollytelling support===*/
+body.home main.scrolly{ max-width:none !important; width:100% !important; margin:0 !important; padding:0 !important; }
+body.home main.scrolly > .scrolly-image{
+  position:sticky; top:0; height:100vh; width:100vw;
+  left:50%; transform:translateX(-50%);
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  z-index:-1; pointer-events:none;
+}
+body.home main.scrolly > section.scrolly-text{
+  background:transparent !important; border:0 !important; border-radius:0 !important; box-shadow:none !important;
+  margin:0 !important; display:grid; place-items:center; min-height:110vh; padding:8vh 1rem !important;
+}
+body.home .text-wrap{
+  width:min(92vw,70ch);
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  color:#fff; padding:1.25rem 1rem; border-radius:14px; box-shadow: var(--shadow);
+}
+body.home .text-wrap p{ margin:0 0 .85rem }
+body.home .btn{
+  display:inline-block; padding:.55rem .9rem; border-radius:12px;
+  border:1px solid rgba(255,255,255,.65); background:rgba(255,255,255,.12);
+  color:#fff; font-weight:600; text-decoration:none;
+}
+
+/*====links list sections====*/
+#links ul{ list-style:none; padding:0; margin-top:.5rem; }
+#links li{ margin: 8px 0; }
+#links a{ color: var(--brand); text-decoration:none; font-size: .98rem; }
+#links a:hover{ text-decoration:underline; }
+
+/*====misc utilities====*/
+.muted{ color: var(--muted); }
+.center{ text-align:center; }
+.badge{ display:inline-block; font-size:.8em; padding:.25rem .55rem; border-radius:999px;
+  background: color-mix(in oklch, var(--brand), transparent 85%);
+  border:1px solid color-mix(in oklch, var(--brand), #000 12%);
+}
+
+/*===chart.js friendly defaults===*/
+/* keeps canvas clean on dark background */
+canvas{ background: transparent; }
+
+/* optional: better print */
+@media print{
+  body{ background:#fff; color:#000 }
+  section{ box-shadow:none; border-color:#ddd }
+}
+
+/* equal card height */
+.grid {
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card figure img {
+  max-height: 220px;
+  object-fit: cover;
+}
+
+.card .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.card h2 {
+  margin-bottom: .5rem;
+}
+
+.card p {
+  margin-top: auto;
+}
+
+figure figcaption {
+  font-size: 0.75rem;
+  color: #777;
+  text-align: center;
+  margin-top: 4px;
+  font-style: italic;
+}
+.card {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 16px rgba(0,0,0,0.08);
+}
+
+
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card figure {
+  height: 200px; 
+  overflow: hidden;
+  margin: 0;
+}
+
+.card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card .content {
+  padding: 1rem;
+  display: block; 
+}
+
+.card .content p { margin: 0; }
+
+
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: none;
+}
+
+.card-link:hover h2,
+.card-link:hover p {
+  text-decoration: none;
+}
+
+
+.visually-hidden {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* === STORY STICKY HERO (single source) === */
+
+/* full-bleed layout for this page only */
+body.story header,
+body.story main,
+body.story footer {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: min(4vw, 24px);
+  padding-right: min(4vw, 24px);
+}
+
+/* sections without frames */
+body.story section {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* images full width only in story */
+body.story figure img {
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  width: 100%;
+  height: auto;
+}
+
+body.story .hero-sticky {
+  position: sticky;
+  top: 0;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+body.story .hero-sticky img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* steps over the image */
+body.story #photo .scrolly-steps {
+  position: relative;
+  z-index: 2;
+}
+
+body.story #photo .step {
+  min-height: 100vh;          /* one screen per step */
+  display: grid;
+  place-items: center center;      /* bottom-left */
+  padding: 6vh min(4vw, 32px);
+}
+
+body.story #photo .text {
+  max-width: 46ch;
+  color: #fff;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  line-height: 1.5;
+  opacity: .35;
+  transform: translateY(12px);
+  transition: opacity .25s linear, transform .25s linear;
+}
+
+body.story #photo .step.is-active .text {
+  opacity: 1;
+  transform: none;
+}
+
+/* a11y */
+@media (prefers-reduced-motion: reduce) {
+  body.story #photo .text { transition: none; }
+}
+
+
+/* يجعل الصفحة كاملة العرض فقط إذا كانت تحمل class="story" */
+body.story header,
+body.story main,
+body.story footer,
+body.story section {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+
+
+
+
+
+
+/* Crossfade gallery on scroll — scoped */
+body.story .fade-stack{
+  position: relative;
+  margin: 0; padding: 0; border: 0; box-shadow: none;
+}
+
+body.story .fade-stack .fade-item{
+  position: sticky;          /* تبقى الصورة مثبتة */
+  top: 0;
+  height: 100vh;             /* كل صورة تملأ الشاشة */
+  margin: 0;
+  opacity: 0;                /* سنضبطها عبر JS */
+  transition: opacity .08s linear; /* لتنعيم طفيف أثناء الحساب */
+}
+
+body.story .fade-stack .fade-item img{
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ترتيب الطبقات: الأولى أسفل، الأخيرة أعلى */
+body.story .fade-stack .fade-item:nth-child(1){ z-index: 1; }
+body.story .fade-stack .fade-item:nth-child(2){ z-index: 2; }
+body.story .fade-stack .fade-item:nth-child(3){ z-index: 3; }
+
+
+body.story #crossfade.fade-stack .fade-item { opacity: 0; }
+body.story #crossfade.fade-stack .fade-item:first-child { opacity: 1; }
+
+
+/* Crossfade on scroll */
+body.story .fade-stack{
+  position: relative;
+  margin: 0; padding: 0; border: 0; box-shadow: none;
+  /* مُمْتد ليولّد مسافة سكرول كافية: (N-1) شاشات */
+}
+body.story .fade-stack::after{
+  content: "";
+  display: block;
+  height: calc((var(--fade-count, 3) - 1) * 100vh);
+}
+
+body.story .fade-stack .fade-item{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  margin: 0;
+  opacity: 0;
+  transition: opacity .08s linear; /* تنعيم خفيف */
+}
+
+body.story .fade-stack .fade-item img{
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* ترتيب الطبقات */
+body.story .fade-stack .fade-item:nth-child(1){ z-index: 1; }
+body.story .fade-stack .fade-item:nth-child(2){ z-index: 2; }
+body.story .fade-stack .fade-item:nth-child(3){ z-index: 3; }
+
+/* افتراضي: أول صورة مرئية إذا تعطّل JS */
+body.story #crossfade.fade-stack .fade-item:first-child { opacity: 1; }
+
+
+
+
+
+body.story #crossfade {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: visible !important;
+}
+
+body.story #crossfade::after {
+  content: "";
+  display: block;
+  height: calc((var(--fade-count, 3) - 1) * 100vh); /* هذا هو مفتاح الحركة */
+}
+
+
+
+/* Crossfade with single sticky viewport */
+body.story #crossfade.xf{
+  position: relative;
+  /* يولّد مساحة سكرول كافية: frames × 100vh */
+  height: calc(var(--frames, 3) * 100vh);
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.story #crossfade .xf-viewport{
+  position: sticky;
+  top: 0;
+  height: calc(var(--vh, 1vh) * 100);      /* إن أردت دعم iOS الكامل سنستبدلها بالـ --vh من JS */
+  width: 100%;
+  overflow: hidden;
+}
+
+body.story #crossfade .xf-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;             /* ستُضبط بالـ JS */
+  transition: opacity .12s linear;  /* تنعيم بسيط */
+}
+
+/* ترتيب الصور: الأولى أسفل والأخيرة أعلى */
+body.story #crossfade .xf-img:nth-child(1){ z-index: 1; }
+body.story #crossfade .xf-img:nth-child(2){ z-index: 2; }
+body.story #crossfade .xf-img:nth-child(3){ z-index: 3; }
+
+/* افتراض أمان إذا تعطّل JS */
+body.story #crossfade .xf-img:first-child{ opacity: 1; }
+
+
+
+
+
+
+
+
+
+body.story .fade-stack{ position:relative; }
+body.story .fade-stack::after{
+  content:"";
+  display:block;
+  height:calc((var(--fade-count,3)-1)*100vh);
+}
+body.story .fade-stack .fade-item{
+  position:sticky;
+  top:0;
+  height:100vh;
+  opacity:0;
+  transition:opacity .12s linear;
+}
+body.story .fade-stack .fade-item img{
+  width:100%; height:100%; object-fit:cover;
+}
+body.story .fade-stack .fade-item:first-child{ opacity:1; }
+
+
+
+
+
+
+/* جعل نص الخطوات في الوسط */
+body.story #photo .step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.story #photo .text {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/* === Crossfade Scroll Section === */
+body.story #crossfade.fade-stack {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* يولد طول سكرول = (عدد الصور - 1) × ارتفاع الشاشة */
+body.story #crossfade.fade-stack::after {
+  content: "";
+  display: block;
+  height: calc((var(--fade-count) - 1) * 100vh);
+}
+
+/* الصور */
+body.story #crossfade .fade-item {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity .35s linear;
+}
+
+body.story #crossfade .fade-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* أمان في حال تعطّل السكربت */
+body.story #crossfade .fade-item:first-child {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+/* --- Crossfade Scroll --- */
+body.story #crossfade.fade-stack {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body.story #crossfade.fade-stack::after {
+  content: "";
+  display: block;
+  height: calc((var(--fade-count) - 1) * var(--vh, 1vh) * 100);
+}
+
+body.story #crossfade .fade-item {
+  position: sticky;
+  top: 0;
+  height: calc(var(--vh, 1vh) * 100);
+  opacity: 0;
+  transition: opacity 0.4s linear;
+}
+
+body.story #crossfade .fade-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.story #crossfade .fade-item:first-child {
+  opacity: 1;
+}
+
+
+body.story #crossfade.fade-stack {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+body.story #crossfade.fade-stack::after {
+  content: "";
+  display: block;
+  height: calc((var(--fade-count) - 1) * 100vh);
+}
+
+body.story #crossfade .fade-item {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity .4s linear;
+}
+
+body.story #crossfade .fade-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.story #crossfade .fade-item:first-child {
+  opacity: 1;
+}
+
+/* ================= STORY FIXES & SCROLLY ================ */
+
+html, body { overflow-x: hidden; }
+#photo, #crossfade, main, body { overflow: visible !important; }
+
+body.story header,
+body.story main,
+body.story footer { max-width: none !important; width: 100% !important; margin: 0 !important;
+  padding-left: min(4vw, 24px); padding-right: min(4vw, 24px); }
+body.story section { background: transparent !important; border: 0 !important; box-shadow: none !important;
+  border-radius: 0 !important; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; }
+body.story figure img { border: 0 !important; background: transparent !important; border-radius: 0 !important;
+  width: 100%; height: auto; }
+
+body.story #photo { position: relative; margin: 0; padding: 0; }
+body.story #photo .hero-sticky {
+  position: sticky; top: 0; height: 100vh; width: 100%;
+  overflow: hidden; z-index: 0;
+}
+body.story #photo .hero-sticky img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+body.story #photo .scrolly-steps { position: relative; z-index: 2; }
+body.story #photo .step {
+  min-height: 100vh;
+  display: grid;
+  place-items: end start;
+  padding: 6vh min(4vw, 32px);
+}
+body.story #photo .text {
+  max-width: 46ch; color: #fff; background: rgba(0,0,0,.45); backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem; border-radius: 12px; line-height: 1.5;
+  opacity: .35; transform: translateY(12px);
+  transition: opacity .25s linear, transform .25s linear;
+}
+body.story #photo .step.is-active .text { opacity: 1; transform: none; }
+
+body.story #crossfade { position: relative; height: calc(var(--frames, 3) * 100vh); margin: 0; padding: 0; }
+body.story #crossfade .xf-viewport { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; }
+body.story #crossfade .xf-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity .2s linear;
+}
+body.story #crossfade .xf-img:first-child { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.story #photo .text { transition: none; }
+  body.story #crossfade .xf-img { transition: none; }
+}
+
+
+
+
+
+
+
+
+
+/* =========== FIX: desktop cap + mobile contain =========== */
+
+/* استخدم وحدات svh/dvh الحديثة بدل سكربت --vh */
+:root {
+  --heroH: clamp(560px, 100svh, 900px); /* الهيرو على الديسكتوب: لا يتضخم فوق 900px ولا ينزل تحت 560px */
+  --xfH:    clamp(560px, 100svh, 900px); /* نفس الشيء لقسم الكروسفيد */
+}
+
+/* الهيرو */
+body.story .hero-sticky{
+  position: sticky;
+  top: 0;
+  height: var(--heroH);
+  width: 100%;
+  overflow: hidden;
+  z-index: 0 !important; /* لا تضع قيم سالبة */
+}
+body.story .hero-sticky img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* يملأ مع قص خفيف على الديسكتوب */
+  object-position: center;
+  display: block;
+}
+
+/* خطوات النص */
+body.story #photo .scrolly-steps{ position: relative; z-index: 2 !important; }
+body.story #photo .step{
+  min-height: var(--heroH);
+  display: grid;
+  place-items: end center;
+  padding: 8vh min(4vw, 28px);
+}
+
+/* الكروسفيد */
+body.story #crossfade{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  /* طول القسم = عدد الإطارات × ارتفاع الشاشة المقيد */
+  height: calc(var(--frames, 3) * var(--xfH));
+}
+body.story #crossfade .xf-viewport{
+  position: sticky;
+  top: 0;
+  height: var(--xfH);
+  width: 100%;
+  overflow: hidden;
+}
+body.story #crossfade .xf-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* ديسكتوب: غطاء مع قص */
+  object-position: center;
+  opacity: 0;
+  transition: opacity .15s linear;
+}
+body.story #crossfade .xf-img:first-child{ opacity: 1; }
+
+/* ــــــ Mobile ــــــ */
+@media (max-width: 640px){
+  :root {
+    /* على الموبايل: اجعل الارتفاع يطابق الشاشة بدون سقف */
+    --heroH: 100svh;
+    --xfH:   100svh;
+  }
+
+  /* منع أي قص للصور على الشاشات الصغيرة */
+  body.story .hero-sticky img,
+  body.story #crossfade .xf-img{
+    object-fit: contain;    /* تصغير الصورة بالكامل بدون قص */
+    background: #000;       /* حواف سوداء عند وجود فراغات */
+  }
+
+  /* تقليل الهوامش للنص */
+  body.story #photo .step{ padding: 6vh 16px; }
+}
+
+/* تأكد أن الأسلاف لا تقتل sticky */
+body.story header, body.story main, body.story footer, body.story section{
+  overflow: visible !important;
+}
+
+
+
+
+
+
+
+
+
+/* ===== MAIN HERO ONLY: اجعلها تتكيف صح ===== */
+:root{
+  /* سقف منطقي على الديسكتوب، كامل الشاشة على العادي */
+  --heroH: clamp(560px, 100svh, 900px);
+}
+
+/* حاوية الهيرو */
+body.story #photo { margin: 0; padding: 0; }
+body.story #photo .hero-sticky{
+  position: sticky;
+  top: 0;
+  height: var(--heroH);
+  width: 100%;
+  overflow: hidden;
+  z-index: 0 !important; /* لا تجعله سالب */
+}
+
+/* صورة الهيرو نفسها */
+body.story #photo .hero-sticky img{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  object-fit: cover;        /* تملأ مع قص بسيط على الديسكتوب */
+  object-position: center;  /* غيّرها إذا بدك تركيز مختلف */
+  background: #000;         /* خلفية عند ظهور فراغات على بعض الأجهزة */
+}
+
+/* موبايل: لا نقص ولا قص — صغّر الصورة بالكامل */
+@media (max-width: 640px){
+  :root{ --heroH: 100svh; }
+  body.story #photo .hero-sticky img{
+    object-fit: contain !important; /* يتكيّف بالكامل */
+  }
+}
+
+/* تأكد أن الأسلاف لا تمنع التثبيت أو تغيّر الأبعاد */
+body.story header,
+body.story main,
+body.story footer,
+body.story section{
+  max-width: none !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+
+
+
+/* ===== HERO ===== */
+/* HERO: اعرض الصورة كاملة عند التكبير */
+#photo .hero-sticky{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  background: #000;   /* أشرطة جانبية مقبولة عند اختلاف الأبعاد */
+  overflow: hidden;
+}
+
+#photo .hero-sticky img{
+  object-fit: contain; /* ← المهم: اعرض كاملة بدون قص */
+  width: 100%;
+  height: 100%;
+  max-width: none;     /* لا تحدّها بعرض ثابت */
+  border-radius: 12px; /* إذا بدك حواف ناعمة */
+}
+
+/* على الموبايل ممكن نرجع للـ cover لو بدك ملء كامل */
+@media (max-width: 640px){
+  #photo .hero-sticky{ height: 80vh; }
+  #photo .hero-sticky img{
+    object-fit: cover;   /* غطّي الشاشة على الموبايل */
+    object-position: center;
+  }
+}
+
+
+
+/* ===== Scrolly pairs (sticky image + text up) ===== */
+body.story .scrolly-pairs{ position:relative; margin:0; padding:0; }
+
+.scrolly-pairs .sp-viewport{
+  position: sticky; top:0; height:100vh; width:100%;
+  overflow:hidden; z-index:-1;
+}
+.scrolly-pairs .sp-img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  opacity:0; transition:opacity 2s ease;
+}
+.scrolly-pairs .sp-img:first-child{ opacity:1; } /* أمان إذا تعطّل JS */
+
+.scrolly-pairs .sp-steps{ position:relative; }
+.scrolly-pairs .sp-step{
+  min-height:120vh; display:grid; place-items:center;
+  padding:6vh min(4vw,32px);
+}
+.scrolly-pairs .sp-text{
+  max-width:60ch;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(6px);
+  color:#fff; padding:1rem 1.25rem;
+  border-radius:12px; box-shadow: var(--shadow);
+  transform: translateY(20vh);        /* يبدأ من تحت */
+  opacity:.15;                        /* باهت عند البداية */
+  transition: opacity .12s linear, transform .12s linear;
+}
+
+/* يمكن تقليل الحركة لذوي الحساسية */
+@media (prefers-reduced-motion: reduce){
+  .scrolly-pairs .sp-text{ transition:none; }
+}
+
+
+#video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+#video video {
+  width: center;      /* أصغر من الشاشة */
+  max-width: 900px; /* حد أقصى بحجم اللابتوب */
+  border-radius: 12px;  /* إذا بدك حواف ناعمة */
+}
+
+
+
+
+/* === Closing: sticky image + stepped text === */
+body.story .closing{
+  max-width:none; width:10%; margin:0; padding:0;
+  background:transparent; border:0; box-shadow:none;
+}
+
+body.story .closing-viewport{
+  position: sticky; top:0;
+  height:100vh; width:100%;
+  overflow:hidden; z-index:0;
+}
+body.story .closing-viewport img{
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+
+body.story .closing-steps{ position:relative; z-index:1; }
+body.story .cstep{
+  min-height:95vh;            /* شاشة تقريباً لكل فقرة */
+  display:grid; place-items:center;
+  padding:8vh min(4vw,24px);
+}
+body.story .bubble{
+  max-width:60ch;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(6px);
+  color:#fff;
+  padding:1rem 1.25rem;
+  border-radius:12px;
+  line-height:1.55;
+  opacity:.25;
+  transform: translateY(12px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+/* تمييز الفقرة النشطة */
+body.story .cstep.is-active .bubble{
+  opacity:1; transform:none;
+}
+
+/* تبطئة الانتقال قليلاً ليكون التبديل أهدأ */
+@media (prefers-reduced-motion: no-preference){
+  body.story .bubble{ transition-duration:.3s; }
+}
+
+
+
+
+
+
+/* === Scrollytelling Map (MapLibre) === */
+.scrolly-map{ position: relative; width:50%; margin:0; padding:0; }
+#mlViewport{
+  position: sticky; top: 0; height: 100svh; width: 100%;
+  z-index: 0; isolation: isolate;
+  border-radius: 12px; /* حواف */
+  overflow: hidden;
+}
+/* توهج خفيف على الأطراف لإحساس “glow” */
+#mlViewport::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+  box-shadow: inset 0 0 180px rgba(20,203,168,.2), inset 0 0 260px rgba(11,61,145,.18);
+}
+/* طبقة ضبابية شفافة لتعميق المشهد */
+#mlViewport::before{
+  content:""; position:absolute; inset:-10% -10% -30% -10%; z-index:1; pointer-events:none;
+  background: radial-gradient(120% 80% at 50% 100%, rgba(0,0,0,.35) 0%, transparent 60%);
+}
+
+.map-steps{ position: relative; z-index: 3; }
+.map-step{
+  min-height: 100svh; display:grid; place-items:center;
+  padding: 8vh min(4vw,32px);
+}
+.map-step p{
+  max-width: 48ch; color:#fff; line-height:1.55;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem; border-radius: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== Closing: صورة ثابتة + نص متدرّج ===== */
+body.story .closing{
+  position: relative;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* الحاوية اللاصقة للصورة */
+body.story .closing-viewport{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  /* حواف أنيقة مثل الهيرو */
+  max-width: min(1700px, 100vw);
+  margin-inline: auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+  background: #000;
+}
+
+/* الصورة: ملء الحاوية مع نقطة تركيز قابلة للتعديل */
+body.story .closing-viewport img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--fx, 50%) var(--fy, 50%);
+  display: block;
+}
+
+@media (min-width:1200px){
+  body.story .closing-viewport img{
+    object-position: var(--fx-lg, var(--fx,50%)) var(--fy-lg, var(--fy,50%));
+  }
+}
+
+/* عمود النصوص */
+body.story .closing-steps{
+  position: relative;
+  z-index: 1;               /* فوق الصورة */
+}
+
+/* كل خطوة = شاشة تقريبًا */
+body.story .closing-step{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6vh min(4vw, 32px);
+}
+
+/* صندوق النص */
+body.story .closing-text{
+  max-width: 46ch;
+  color: #fff;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(6px);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  line-height: 1.5;
+  opacity: .35;
+  transform: translateY(12px);
+  transition: opacity .28s linear, transform .28s linear;
+}
+
+/* إبراز الفقرة النشطة */
+body.story .closing-step.is-active .closing-text{
+  opacity: 1;
+  transform: none;
+}
+
+/* تقليل الحركة لمن يفضّل ذلك */
+@media (prefers-reduced-motion: reduce){
+  body.story .closing-text{ transition: none; }
+}
+
+
+body.story header h1{
+  text-align:center;
+  margin-top:4rem;
+  margin-bottom:3rem;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height:1.25;
+}
+
+/* يعطي فراغ يمين ويسار ويمنع الالتصاق */
+body.story header{
+  padding-left: min(6vw, 40px);
+  padding-right: min(6vw, 40px);
+}
+
+
+
+
+
+
+
+
+
+/* ========== NAV PAGE OVERRIDES (scoped) ========== */
+/* ================== NAV ONLY ================== */
+/* كل القواعد تحت body.nav لتجنب أي تضارب مع باقي الصفحات */
+body.nav{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:#0f1826;
+  color:#e9edf3;
+  line-height:1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------- رأس الصفحة ------- */
+body.nav .nav-header{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 1rem 2rem;
+  text-align: center;
+}
+body.nav .nav-header h1{
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+body.nav .nav-header .lead{
+  max-width: 70ch;
+  margin: 0 auto;
+  opacity:.85;
+}
+
+/* ------- وعاء الأقسام ------- */
+body.nav .nav-main > section,
+body.nav .nav-section{
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* إزالة أي “فريمات” أو ظلال أو زوايا دائرية في صفحة NAV فقط */
+body.nav .nav-section,
+body.nav #nav-hero,
+body.nav #psyche-fade,
+body.nav .nav-embed{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+/* كل الوسائط بلا حواف أو ظلال */
+body.nav img,
+body.nav video,
+body.nav iframe{
+  display:block;
+  width:100%;
+  height:auto;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background: transparent !important;
+}
+
+/* ------- صورة الهيرو ------- */
+body.nav #nav-hero .nav-hero-sticky img{
+  height: clamp(360px, 70vh, 800px);
+  object-fit: cover;      /* قص بسيط بدل تمدد غير طبيعي */
+  object-position: center;
+}
+
+/* نص تحت الهيرو */
+body.nav #nav-hero .nav-hero-text{
+  max-width: 760px;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
+}
+
+/* ------- الصور العادية داخل المقال ------- */
+body.nav figure{
+  margin: 1.25rem 0;
+}
+body.nav figure img{
+  height: clamp(300px, 60vh, 680px);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ================== كروسفيد 4 صور ================== */
+/* يبدأ التمرير من عنوان القسم */
+body.nav #text-psyche{ scroll-margin-top: 12vh; }
+
+/* طول الكروسفيد قصير ليتبدّل ضمن 3–4 سكرولات */
+body.nav .nav-xf{
+  position: relative;
+  height: calc(var(--frames, 4) * 50vh);   /* الطول الإجمالي */
+  margin: 2rem 0;
+}
+body.nav .nav-xf-viewport{
+  position: sticky;
+  top: 0;
+  height: 50vh;                              /* ارتفاع نافذة العرض */
+  width: 100%;
+  overflow: hidden;
+  z-index: 0;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+body.nav .nav-xf-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                          /* غطاء ناعم */
+  object-position: center;
+  opacity: 0;
+  transition: opacity .3s linear;
+  pointer-events: none;                       /* منع أي تداخل */
+}
+/* أمان عند تعطّل JS */
+body.nav .nav-xf-img:first-child{ opacity:1; }
+
+/* موبايل: أقصر قليلاً */
+@media (max-width:640px){
+  body.nav .nav-xf{          height: calc(var(--frames, 4) * 45vh); }
+  body.nav .nav-xf-viewport{ height: 45vh; }
+  body.nav #nav-hero .nav-hero-sticky img{ height: 60vh; }
+  body.nav figure img{ height: 45vh; }
+}
+
+/* ------- الروابط/القائمة في قسم الكِلدَر ------- */
+body.nav .nav-links{ list-style: none; padding: 0; margin: .5rem 0 0; }
+body.nav .nav-links li{ margin: .6rem 0; }
+body.nav .nav-links a{ color:#9cc7ff; text-decoration:none; }
+body.nav .nav-links a:hover{ text-decoration:underline; }
+
+/* ------- الخرائط (iframe) ------- */
+body.nav .nav-embed{
+  position: relative;
+  width:100%;
+  max-width:1000px;
+  margin: 1rem auto;
+}
+body.nav .nav-embed iframe{
+  width:100%;
+  height: min(56.25vw, 520px);  /* 16:9 محسوب بدون حواف */
+  border:0;
+}
+
+/* ------- الفوتر ------- */
+body.nav .nav-footer{
+  text-align:center;
+  padding: 3rem 1rem;
+  opacity:.65;
+  font-size:.9rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================
+   NAV page Effects Tokens
+   Gjelder KUN body.nav
+============================ */
+body.nav {
+  /* Motion */
+  --fx-duration-fast: 150ms;
+  --fx-duration: 260ms;
+  --fx-duration-slow: 420ms;
+  --fx-ease: cubic-bezier(.22,.61,.36,1);        /* rolig inn/ut */
+  --fx-spring: cubic-bezier(.16,1,.3,1);         /* spenstig */
+
+  /* Elevation / Shadow */
+  --fx-shadow-1: 0 6px 14px rgba(0,0,0,.18);
+  --fx-shadow-2: 0 10px 24px rgba(0,0,0,.22);
+  --fx-shadow-3: 0 14px 40px rgba(0,0,0,.28);
+
+  /* Transform scales */
+  --fx-raise: translateY(-4px);
+  --fx-float: translateY(-10px);
+  --fx-tilt: rotate3d(.2, -.1, 0, 4deg);
+
+  /* Backdrop */
+  --fx-glass-bg: rgba(255,255,255,.06);
+  --fx-glass-brd: rgba(255,255,255,.18);
+
+  /* Focus ring */
+  --fx-focus: 0 0 0 3px color-mix(in oklch, var(--brand), transparent 80%);
+}
+
+/* Respektér redusert bevegelse */
+@media (prefers-reduced-motion: reduce) {
+  body.nav { --fx-duration-fast: 0ms; --fx-duration: 0ms; --fx-duration-slow: 0ms; }
+}
+
+
+
+
+/* NAV map section: no white panel */
+body.nav #map { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+body.nav #map .leaflet-container { background: transparent !important; }
+#leaflet-map { height: 80vh; width: 100%; background: transparent !important; }
+.leaflet-container { background: transparent !important; border: none !important; outline: none !important; box-shadow: none !important; }
+
+
+
+/* تأثيرات لصفحة B فقط */
+body.nav .fx-raise {
+  transition: 0.50s;
+}
+body.nav .fx-raise:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+body.nav .fx-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.20s ease;
+}
+body.nav .fx-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.nav .fx-fade {
+  transition: 0.6s ease; /* غير الرقم */
+}
+.fx-fade {
+  opacity: 0;                 /* هون بتكون مخفية */
+  transform: translateY(20px); /* حركة نزول بسيطة */
+  transition: opacity 0.6s ease, transform 0.6s ease; /* سرعة ونعومة */
+}
+
+.fx-fade.show {
+  opacity: 1;                 /* تظهر */
+  transform: translateY(0);   /* ترجع لمكانها */
+}
+
+
+ 
+
+
+.page-index header {
+  text-align: center;
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.page-index header h1 {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+.page-index header .lead {
+  text-align: center;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Scroll Percent Image — sticky + conic sector */
+.simg-wrap{ min-height:200vh; margin:0; }
+
+.simg-figure{
+  position:sticky; top:0; height:100vh; margin:0;
+  display:grid; place-items:center;
+  --deg: 0deg;          /* يُحدَّث من JS: 0..252deg */
+  --eps: 0deg;        /* تغطية طفيفة للحافة */
+  --pie: #e74c3c;       /* لون القطاع */
+  .simg-figure {
+  background: transparent;   /* تأكيد أن الخلفية شفافة */
+}
+}
+
+.simg-img {
+  width: min(70vmin, 520px);
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: none;          /* أزل الظل */
+  background: transparent;   /* لا خلفية */
+}
+
+/* قطاع يغطي الدائرة تماماً دون خروج */
+.simg-figure::before{
+  content:"";
+  position:absolute; inset:0; margin:auto;
+  width:min(70vmin,540px); aspect-ratio:1;
+  border-radius:50%;
+  transform: translateY(-0.4vh);
+  /* 0deg = يمين الدائرة. نضيف eps لتغطية دقيقة */
+  background:
+  conic-gradient(
+    from 0deg,
+    var(--pie) 0deg,
+    var(--pie) calc(var(--deg) + var(--eps)),
+    transparent calc(var(--deg) + var(--eps)) 360deg
+  );
+  pointer-events:none;
+}
+
+/* الرقم في المنتصف */
+.simg-overlay{
+  position:absolute; inset:5; display:grid; place-items:center;
+  font:600 clamp(1rem,3vw,2rem)/1 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:#4b0b0b; text-shadow:0 3px 6px rgba(255, 255, 255, 0.45);
+  pointer-events:none;
+}
+
+
+/* 1) شيل أي بوردر/ظل حول القسم والصورة والقطاع */
+.nav .simg-wrap,
+.nav-main .simg-wrap,
+.simg-wrap,
+.simg-figure,
+.simg-figure::before,
+.simg-overlay,
+.simg-img{
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 2) خلّي خلفية القسم شفافة بالكامل */
+.simg-wrap{
+  background: transparent !important;
+}
+
+/* 3) قصّ القطاع داخل دائرة فقط (لو ظهر خط رفيع حوله) */
+.simg-figure::before{
+  clip-path: circle(50% at 50% 50%);
+  background-color: transparent !important;
+}
+
+
+.nav-section p {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* محاذاة وسط لعناوين هذه الصفحة فقط */
+.page-topic-b h1,
+.page-topic-b h2,
+.page-topic-b h3,
+.page-topic-b h4,
+.page-topic-b h5,
+.page-topic-b h6 {
+  text-align: center;
+}
+
+/* توسيط كل النصوص والعناوين في الصفحة الحالية */
+.page-topic-b {
+  text-align: center;
+}
+
+.page-topic-b .nav-section p {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80ch; /* اختيارياً لتحديد عرض الفقرات */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* نص ثابت في منتصف الشاشة فوق كل شيء */
+.xf-text-fixed{
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2147483647;         /* أعلى طبقة ممكنة */
+  pointer-events: none;
+  opacity: 0;                  /* يُظهره السكربت فقط داخل القسم */
+  transition: opacity .15s linear;
+
+  color: #fff;
+  font: 700 clamp(1.5rem,4vw,3rem)/1.2 system-ui, sans-serif;
+  text-align: center;
+  text-shadow: 0 3px 15px rgba(0,0,0,.6);
+}
+
+/* تأكيد أن طبقة الصور ليست فوق النص */
+#psyche-fade, .nav-xf, [data-xf]{
+  position: relative;
+  z-index: 1;
+}
+
+
+
+
+/* Fjern panel-rammer på side E */
+body.page-topic-e section {
+  background: transparent;   /* لو بدك تخلي الخلفية نفسها */
+  border: 0;
+  box-shadow: none;
+}
+
+
+
+/* Fjern rammer/border/box-shadow i index-siden */
+body.page-index section,
+body.page-index figure,
+body.page-index .card,
+body.page-index .panel {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+body.page-index section,
+body.page-index figure,
+body.page-index .card {
+  background: transparent !important;
+}
+
+
+/* نفس الخلفية بلون واحد للصفحات index / a / e */
+body.page-index,
+body.page-topic-a,
+body.page-topic-e {
+  background: #050b10 !important;   /* اختَر اللون اللي بدك ياه */
+}
+
+/* لو عندك طبقة خلفية إضافية (::before أو .page-bg) شيل الـ gradient منها */
+body.page-index::before,
+body.page-topic-a::before,
+body.page-topic-e::before,
+body.page-index .page-bg,
+body.page-topic-a .page-bg,
+body.page-topic-e .page-bg {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===== إزالة البوردر الكبير حول الصفحات (index + a + e) ===== */
+
+/* أزل أي إطار أو ظل عن الحاويات الرئيسية */
+main,
+.nav-main,
+.page-shell,
+.page-index main,
+.page-topic-a main,
+.page-topic-e main {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ألغِ أي عناصر ديكورية قبل/بعد تعمل خط أو إطار */
+main::before,
+main::after,
+.nav-main::before,
+.nav-main::after,
+.page-shell::before,
+.page-shell::after,
+.page-index main::before,
+.page-index main::after,
+.page-topic-a main::before,
+.page-topic-a main::after,
+.page-topic-e main::before,
+.page-topic-e main::after {
+  content: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+
+
+/* Fjern kort/border på sider A og E */
+body.page-topic-a main section,
+body.page-topic-e main section {
+  background: var(--bg);   /* نفس لون الخلفية العامة */
+  border: none;            /* بدون بوردر */
+  box-shadow: none;        /* بدون ظل */
+  border-radius: 0;        /* بدون زوايا مدورة */
+}
+
+
+
+/* Match background for page B */
+body.page-topic-b {
+  background: var(--bg);      /* نفس خلفية المواقع الأساسية */
+  background-color: var(--bg);
+  background-image: none !important;
+}
+
+/* وأيضًا أقسام الصفحة B */
+body.page-topic-b main section {
+  background: var(--bg);
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+
+/* === Page D: samme bakgrunn som index/E + ingen border/ramme === */
+
+/* خلفية الصفحة نفسها */
+body.page-topic-d{
+  background: var(--bg);            /* نفس الخلفية الرئيسية المستخدمة في بقية الموقع */
+}
+
+/* إلغاء الكرت الأبيض + الإطار حول المحتوى الرئيسي */
+body.page-topic-d main,
+body.page-topic-d .topic-main,
+body.page-topic-d .topic-shell{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* إلغاء أي حدود تحت الأقسام */
+body.page-topic-d .nav-section,
+body.page-topic-d section,
+body.page-topic-d figure{
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;          /* لو كان في خلفية بيضاء للأقسام */
+}
+
+/* لو كان في إطار سفلي عام على الـ main من الـ index-style */
+body.page-topic-d main::before,
+body.page-topic-d main::after{
+  border: none !important;
+  box-shadow: none !important;
+
+}
+
+
+
+/* إزالة جميع البوردات والظلال من الصفحة A فقط */
+body.page-topic-a section,
+body.page-topic-a figure,
+body.page-topic-a img,
+body.page-topic-a video {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* إزالة أي خط سفلي للفيديو أو البطاقات في الصفحة A */
+body.page-topic-a #video,
+body.page-topic-a #video video {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================== Timeline – side A ================== */
+
+#timeline-section {
+  max-width: 900px;
+  margin: 3rem auto;
+}
+
+#timeline-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* الخط العمودي في المنتصف */
+#timeline-section .timeline {
+  position: relative;
+  margin: 0 auto;
+  padding: 1rem 0 2rem;
+}
+
+#timeline-section .timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #d4dde9; /* قريب من ألوان تصميمك */
+  transform: translateX(-50%);
+}
+
+/* عناصر الـ timeline */
+#timeline-section .timeline .container {
+  position: relative;
+  width: 50%;
+  padding: 0.75rem 2rem;
+  box-sizing: border-box;
+}
+
+/* اليسار */
+#timeline-section .timeline .container.left {
+  left: 0;
+  text-align: right;
+}
+
+/* اليمين */
+#timeline-section .timeline .container.right {
+  left: 50%;
+  text-align: left;
+}
+
+/* النقطة على الخط */
+#timeline-section .timeline .container::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #0b3d91;      /* نفس الـ brand تقريباً */
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(11,61,145,0.15);
+}
+
+/* مكان النقطة يسار/يمين الخط */
+#timeline-section .timeline .container.left::before {
+  right: -6px;
+}
+
+#timeline-section .timeline .container.right::before {
+  left: -6px;
+}
+
+/* البوكس اللي فيه المحتوى */
+#timeline-section .timeline .content {
+  background: #07274c;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+#timeline-section .timeline .content h3 {
+  margin: 0 0 .5rem;
+  font-size: 1.1rem;
+}
+
+#timeline-section .timeline .content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* موبايل: خليها عمود واحد تحت بعض */
+@media (max-width: 768px) {
+  #timeline-section .timeline::before {
+    left: 8px;
+  }
+
+  #timeline-section .timeline .container {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.25rem;
+    text-align: left !important;
+    left: 0;
+  }
+
+  #timeline-section .timeline .container::before {
+    left: 0;
+    right: auto;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* الخط على اليسار */
+  #timeline-section .timeline::before {
+    left: 15px;
+  }
+
+  /* كل العناصر تحت بعض */
+  #timeline-section .timeline .container {
+    width: 100%;
+    left: 0 !important;
+    text-align: left;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  /* النقطة تصبح على اليسار فوق الصندوق */
+  #timeline-section .timeline .container::before {
+    left: 7px;
+    right: auto;
+  }
+}
+
+
+
+
+
+/* === Video fix for page A only === */
+
+.page-topic-a #video video {
+  display: block;
+  width: min(80vw, 800px);   /* نفس عرض الصور تقريبًا */
+  height: auto;              /* يمنع التمدد الطولي */
+  max-height: 70vh;          /* يمنع أن يصير طويل */
+  margin: 2rem auto;         /* توسيط */
+  border-radius: 12px;       /* نفس ستايل الصور */
+  object-fit: cover;         /* قص خفيف للحواف لو لازم */
+  background: #000;          /* يعطي إطار لو الفيديو فيه فراغ */
+}
+
+
+
+/* ===== Elbil main map (page E) ===== */
+#elbil-map {
+  width: 520px;
+  height: 700px;
+  background: #000;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Leaflet base */
+.leaflet-container {
+  background: transparent !important;
+}
+
+/* ===== Global background for page E ===== */
+body.page-topic-e,
+body.page-topic-e main {
+  background-color: #000;
+}
+
+/* ================== Finnmark map section ================== */
+
+#finnmark-map-section {
+  margin: 3rem auto;
+  padding: 1rem;
+}
+
+#finnmark-map-section h2 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+/* map + text box side by side */
+.map-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* same base size for both maps (desktop) */
+#finnmark-map {
+  width: 450px;
+  height: 600px;
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* text box next to map */
+.map-info-box {
+  background: rgba(0,0,0,0.78);
+  padding: 1.5rem 2rem;
+  border-radius: 6px;
+  width: 260px;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color:  #fff;
+}
+
+/* ================== Fylker med flest elbileiere ================== */
+
+#elbil-map-section {
+  width: 100%;
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column; /* title on top */
+  align-items: center;
+}
+
+.elbil-map-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* row: left text + right map */
+.elbil-map-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 4rem;
+}
+
+/* left column */
+.left-side {
+  max-width: 360px;
+  display: block;
+  margin-top: 6rem; /* drop the box a bit */
+}
+
+/* text box on the left */
+.info-box {
+  background: rgba(0,0,0,0.78);
+  padding: 3.8rem 2rem;
+  border-radius: 14px;
+  color: #fff;
+  line-height: 1.55;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+/* right column: map */
+.right-side {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* override for elbil map when used in this section */
+#elbil-map-section #elbil-map {
+  width: 520px;
+  height: 700px;
+  border-radius: 10px;
+}
+
+/* remove global centering rules for this page */
+.page-topic-e > header h1,
+.page-topic-e main > section > h2,
+.page-topic-e main > section > p {
+  text-align: inherit;
+}
+
+/* ================== Full-width banner (image at top) ================== */
+
+.full-banner {
+  width: 100vw;
+  margin: 0 calc(50% - 50vw);
+}
+
+.full-banner img {
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* main title centered */
+.page-topic-e > header h1 {
+  text-align: center;
+  margin: 2rem auto;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+/* ================== MOBILE LAYOUT ================== */
+@media (max-width: 768px) {
+
+  /* banner lower height on mobile */
+  .full-banner img {
+    height: 35vh;
+  }
+
+  /* maps: stack vertically and full width */
+  .map-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #elbil-map-section .elbil-map-row {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .left-side {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+
+  .info-box,
+  .map-info-box {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 1rem;
+  }
+
+  /* maps full width and lower height on mobile */
+  #elbil-map,
+  #finnmark-map,
+  #elbil-map-section #elbil-map {
+    width: 100%;
+    max-width: 100%;
+    height: 340px;
+  }
+
+  .right-side {
+    justify-content: center;
+  }
+
+  #finnmark-map-section {
+    padding: 1rem 1.25rem;
+  }
+}
+
+
+/* خلفية موحدة لكل الصفحة */
+body.page-topic-e,
+body.page-topic-e main,
+section,
+figure,
+#elbil-map-section,
+#finnmark-map-section,
+.full-banner {
+  background-color: #000 !important;
+  border: none !important;
+}
+
+/* إزالة أي حدود أو خطوط */
+* {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* صناديق النص تكون بنفس الخلفية */
+
+
+/* الخرائط بدون أي بوردر */
+#elbil-map,
+#finnmark-map,
+.leaflet-container {
+  background: #000 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* إزالة أي radius إذا بدك الشكل مسطّح بالكامل */
+.full-banner img,
+#elbil-map,
+#finnmark-map {
+  border-radius: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================
+   HERO PANEL — Same as E-page
+============================ */
+/* NAV hero panel like E-page */
+
+/* القسم كله في المنتصف */
+#nav-hero {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* الـpanel حول الصورة */
+#nav-hero .nav-hero-sticky {
+  /* إلغاء أي sticky قديم */
+  position: static !important;
+  top: auto !important;
+
+  width: 100%;
+  margin: 0;
+  background: #05070b;           /* خلفية panel غامقة */
+  padding: 1.75rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+  box-sizing: border-box;
+}
+
+/* الصورة داخل الـpanel */
+#nav-hero .nav-hero-sticky img {
+  display: block;
+  width: 100%;
+  height: 480px;                 /* عدّلها إذا أردت */
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* النص أسفل الصورة */
+#nav-hero .nav-hero-text {
+  max-width: 850px;
+  margin: 2rem auto 0;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  text-align: center;
+  color: #d8d8d8;
+}
